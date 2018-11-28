@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import MainNavbar from './MainNavbar';
 import Home from './pages/Home';
-import Homes from './pages/Homes';
-import AddHome from './pages/AddHome';
+import Posts from './pages/Posts';
+import AddPost from './pages/AddPost';
 import Secret from './pages/Secret';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -28,8 +28,8 @@ class App extends Component {
         <MainNavbar />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/homes" component={Homes} />
-          <Route path="/add-home" component={AddHome} />
+          <Route path="/posts" component={Posts} />
+          <Route path="/add-post" component={AddPost} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/secret" component={Secret} />

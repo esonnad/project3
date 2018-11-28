@@ -7,16 +7,16 @@ import {
   ListGroupItem,
   Row,
 } from 'reactstrap'
-import HomeDetail from './HomeDetail'
+import PostDetail from './PostDetail'
 import api from '../../api';
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 
-class Homes extends Component {
+class Posts extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      homes: []
+      posts: []
     }
     this.mapRef = React.createRef()
     this.map = null
@@ -34,17 +34,17 @@ class Homes extends Component {
     // Add zoom control on the top right corner
     this.map.addControl(new mapboxgl.NavigationControl())
   }
-  handleHomeSelection(iSelected) {
-    this.map.setCenter(this.state.homes[iSelected].location.coordinates)
+  handlePostSelection(iSelected) {
+    this.map.setCenter(this.state.posts[iSelected].location.coordinates)
   }
   render() {
     return (
-      <div className="Homes">
+      <div className="Posts">
         <Row>
           <Col sm={3} className="col-text">
             <ListGroup>
-              {this.state.homes.map((h, i) => (
-                <ListGroupItem key={h._id} action tag={NavLink} to={"/homes/" + h._id} onClick={() => this.handleHomeSelection(i)}>
+              {this.state.posts.map((h, i) => (
+                <ListGroupItem key={h._id} action tag={NavLink} to={"/posts/" + h._id} onClick={() => this.handlePostSelection(i)}>
                   {h.title} by {h._owner.username}
                 </ListGroupItem>
               ))}
@@ -52,8 +52,8 @@ class Homes extends Component {
           </Col>
           <Col sm={4} className="col-text">
             <Switch>
-              <Route path="/homes/:id" render={(props) => <HomeDetail {...props} homes={this.state.homes} />} />
-              <Route render={() => <h2>Select a home</h2>} />
+              <Route path="/posts/:id" render={(props) => <PostDetail {...props} posts={this.state.posts} />} />
+              <Route render={() => <h2>Select a Post</h2>} />
             </Switch>
           </Col>
           <Col sm={5}>
@@ -64,14 +64,14 @@ class Homes extends Component {
     );
   }
   componentDidMount() {
-    api.getHomes()
-      .then(homes => {
-        console.log(homes)
+    api.getPosts()
+      .then(posts => {
+        console.log(posts)
         this.setState({
-          homes: homes.map(home => {
-            const [lng, lat] = home.location.coordinates
+          posts: posts.map(post => {
+            const [lng, lat] = post.location.coordinates
             return {
-              ...home,
+              ...post,
               marker: new mapboxgl.Marker({ color: 'red' })
                 .setLngLat([lng, lat])
                 .on('click', () => { console.log("clicked") })
@@ -92,4 +92,4 @@ class Homes extends Component {
   }
 }
 
-export default Homes;
+export default Posts;

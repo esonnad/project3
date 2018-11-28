@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const homeSchema = new Schema({
+const postSchema = new Schema({
   title: { type: String, required: true },
   pictures: [String],
-  description: { type: String, required: true },
-  pricePerNight: { type: Number, required: true },
+  text: { type: String, required: true },
+
   // address: {
   //   street: String,
   //   city: String,
@@ -23,5 +23,5 @@ const homeSchema = new Schema({
     }
   });
 
-const Home = mongoose.model('Home', homeSchema);
-module.exports = Home;
+const Post = mongoose.model('Post', postSchema);
+module.exports = Post;

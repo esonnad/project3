@@ -52,16 +52,16 @@ export default {
       .get('/logout')
   },
 
-  getHomes() {
+  getPosts() {
     return service
-      .get('/homes')
+      .get('/posts')
       .then(res => res.data)
       .catch(errHandler)
   },
 
-  addHome(data) {
+  addPost(data) {
     return service
-      .post('/homes', data)
+      .post('/posts', data)
       .then(res => res.data)
       .catch(errHandler)
   },

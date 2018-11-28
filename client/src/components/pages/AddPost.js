@@ -14,13 +14,12 @@ import api from '../../api'
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 
 
-class AddHome extends Component {
+class AddPost extends Component {
   constructor(props) {
     super(props)
     this.state = {
       title: "",
-      description: "",
-      pricePerNight: 0,
+      text: "",
       lng: 13.3711224,
       lat: 52.5063688,
       message: null
@@ -43,21 +42,19 @@ class AddHome extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    console.log(this.state.title, this.state.description)
+    console.log(this.state.title, this.state.text)
     let data = {
       title: this.state.title,
-      description: this.state.description,
-      pricePerNight: this.state.pricePerNight,
+      text: this.state.text,
       lng: this.state.lng,
       lat: this.state.lat,
     }
-    api.addHome(data)
+    api.addPost(data)
       .then(result => {
         console.log('SUCCESS!')
         this.setState({
           title: "",
-          description: "",
-          pricePerNight: 0,
+          text: "",
           message: `Your home has been created`
         })
         setTimeout(() => {
@@ -100,8 +97,8 @@ class AddHome extends Component {
   }
   render() {
     return (
-      <Container className="AddHome">
-        <h2>Add your Home</h2>
+      <Container className="AddPost">
+        <h2>Add your Post</h2>
 
         <Row>
           <Col md={6}>
@@ -113,15 +110,9 @@ class AddHome extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="description" xl={3}>Description</Label>
+                <Label for="text" xl={3}>Text</Label>
                 <Col xl={9}>
-                  <Input type="textarea" value={this.state.description} name="description" cols="30" rows="10" onChange={this.handleInputChange} />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Label for="pricePerNight" xl={3}>Price Per Night</Label>
-                <Col xl={9}>
-                  <Input type="number" value={this.state.pricePerNight} name="pricePerNight" onChange={this.handleInputChange} />
+                  <Input type="textarea" value={this.state.text} name="text" cols="30" rows="10" onChange={this.handleInputChange} />
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -159,4 +150,4 @@ class AddHome extends Component {
   }
 }
 
-export default AddHome
+export default AddPost

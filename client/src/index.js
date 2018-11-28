@@ -7,7 +7,8 @@ import App from './components/App';
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
  
-mapboxgl.accessToken = 'pk.eyJ1IjoibWMxMDBzIiwiYSI6ImNqb2E2ZTF3ODBxa3czd2xldHp1Z2FxbGYifQ.U4oatm5RsTXXHQLz5w66dQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoiZXNvbm5hZCIsImEiOiJjam96eXM0ZGYwMTAwM3ZtdHBiYTZnMnA1In0.bd13D4f1GjPT6iwSU45lTA';
+
 
 
 

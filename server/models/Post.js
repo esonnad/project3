@@ -6,11 +6,6 @@ const postSchema = new Schema({
   pictures: [String],
   text: { type: String, required: true },
 
-  // address: {
-  //   street: String,
-  //   city: String,
-  //   country: String,
-  // },
   location: {
     type: { type: String, required: true },
     coordinates: { type: [Number], required: true }

@@ -3,7 +3,12 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: String,
-  password: String
+  email: String,
+  emailStatus: {type: String, enum:["VERIFIED","UNVERIFIED"], default: "UNVERIFIED"},
+  password: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: String,
+  imageURL: String
 }, {
     timestamps: {
       createdAt: 'created_at',

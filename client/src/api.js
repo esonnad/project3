@@ -66,9 +66,30 @@ export default {
       .catch(errHandler)
   },
 
-  getSecret() {
+  getUser () {
     return service
-      .get('/secret')
+      .get('/user')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  verifyEmail(id){
+    return service
+      .get(`/user/verify/${id}`)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  updateUsernameEmail(data){
+    return service
+      .post('/user', data)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  changePassword(data){
+    return service
+      .post('/user/changepassword', data)
       .then(res => res.data)
       .catch(errHandler)
   },
@@ -77,7 +98,7 @@ export default {
     const formData = new FormData()
     formData.append("picture", file)
     return service
-      .post('/endpoint/to/add/a/picture', formData, {
+      .post('/user/picture', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

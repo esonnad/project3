@@ -4,9 +4,12 @@ import MainNavbar from './MainNavbar';
 import Home from './pages/Home';
 import Posts from './pages/Posts';
 import AddPost from './pages/AddPost';
-import Secret from './pages/Secret';
+import About from './pages/About';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Private from './pages/Private';
+import Profile from './pages/Profile';
+import Verification from './pages/Verification';
 import api from '../api';
 
 class App extends Component {
@@ -28,11 +31,16 @@ class App extends Component {
         <MainNavbar />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/posts" component={Posts} />
-          <Route path="/add-post" component={AddPost} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/secret" component={Secret} />
+          <Route path="/about" component={About} />
+
+          <Route path="/posts" component={Posts} />
+          <Route path="/private" component={Private} />
+          <Route path="/add-post" component={AddPost} />
+          <Route path="/myProfile" component={Profile} />
+          <Route path="/verifyemail/:id" component={Verification} />
+          
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </div>

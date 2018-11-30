@@ -7,10 +7,10 @@ import {
   FormGroup,
   Input,
   Label,
+  Select,
   Row,
 } from 'reactstrap'
 import api from '../../api'
-import TextInput from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
@@ -24,6 +24,7 @@ class AddPost extends Component {
       title: "",
       text: "",
       search: "",
+      category: "Moment",
       searchOptions: [],
       searchCoordinates: {},
       pictureUrl: "",
@@ -48,9 +49,10 @@ class AddPost extends Component {
   }
 
   handleSearch = (event) => {
-    console.log("event", event)
+    let value = event.target.value;
     this.setState({
-       search: event})
+      search: value
+    });
     geocodingClient
       .forwardGeocode({
         query: this.state.search,
@@ -62,7 +64,6 @@ class AddPost extends Component {
         let options = []
         let optionObject = {};
         for (let i = 0; i < match.length; i++) {
-          console.log("place name", typeof match[i].place_name)
           options.push(match[i].place_name)
           optionObject[match[i].place_name] = match[i].geometry.coordinates;
         }
@@ -74,15 +75,15 @@ class AddPost extends Component {
   }
 
   handleSearchSelection = (event) => {
-    console.log("SEARCH SELECTION", event);
-    let currentSearch = this.state.search 
-    currentSearch = currentSearch.substring(0, currentSearch.length - 1)
+    // let currentSearch = this.state.search 
+    // currentSearch = currentSearch.substring(0, currentSearch.length - 1)
     /* currentSearch = '"' + '"' + currentSearch + '"' + '"' */
-    console.log("current search", currentSearch, "search object", this.state.searchCoordinates)
-    console.log("THIS IS THE ONE WE`RE LOOKING AT!specific coordinates", this.state.searchCoordinates[currentSearch.toString()]);
-    let newCoords = this.state.searchCoordinates[currentSearch.toString()]
+    // console.log("THIS IS THE ONE WE`RE LOOKING AT!specific coordinates", this.state.searchCoordinates[currentSearch.toString()]);
+    //let newCoords = this.state.searchCoordinates[currentSearch.toString()]
+    let newCoords = this.state.searchCoordinates[event];
     if (newCoords) {
       this.setState({
+        search: event,
         lng: newCoords[0],
         lat: newCoords[1]
       })
@@ -96,7 +97,6 @@ class AddPost extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    console.log(this.state.title, this.state.text)
     let data = {
       title: this.state.title,
       text: this.state.text,
@@ -105,7 +105,6 @@ class AddPost extends Component {
     }
     api.addPost(data)
       .then(result => {
-        console.log('SUCCESS!')
         this.setState({
           title: "",
           text: "",
@@ -127,12 +126,10 @@ class AddPost extends Component {
     navigator.geolocation.getCurrentPosition((location) =>{
       let latitude = location.coords.latitude;
       let longitude = location.coords.longitude;
-      console.log(longitude, latitude)
       this.setState ({
         lng: longitude,
         lat: latitude
       })
-      console.log("current position", this.state)
 
       this.initMap();
 
@@ -147,7 +144,6 @@ class AddPost extends Component {
       center: [this.state.lng, this.state.lat],
       zoom: 15
     })
-    console.log("creating map", this.map)
 
 
     // Add zoom control on the top right corner
@@ -158,7 +154,6 @@ class AddPost extends Component {
       .setLngLat([this.state.lng, this.state.lat])
       .addTo(this.map)
 
-    console.log("created marker", this.marker)
 
     // Trigger a function every time the marker is dragged
     this.marker.on('drag', () => {
@@ -170,7 +165,6 @@ class AddPost extends Component {
     })
   }
   render() {
-    //console.log("rendering. current state:", this.state)
     return (
       <Container className="AddPost">
         <h2>Add your Post</h2>
@@ -191,12 +185,44 @@ class AddPost extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="search" xl={3}>Find your spot on the map or search here</Label>
+              <Label for="text" xl={3}>Category</Label>
                 <Col xl={9}>
-                  <TextInput type="text" value={this.state.search} name="search" options={this.state.searchOptions} trigger="" onChange={this.handleSearch} onClick={this.handleSearchSelection}/>
+                  <Input type="select" value={this.state.category} name="category" cols="30" rows="5" onChange={this.handleInputChange}>
+                  <option>Moment</option>
+                  <option>Question</option>
+                  <option>Tip</option>
+                  <option>Warning</option>
+                  </Input>
                 </Col>
               </FormGroup>
+              <FormGroup row>
+                <Label for="text" xl={3}>Add a picture</Label>
+                <Col xl={9}>
+                  <Input type="file" value={this.state.pictureUrl} name="pictureUrl" cols="30" rows="5" onChange={this.handleInputChange} />
+                </Col>
+              </FormGroup>
+
               
+              <FormGroup row>
+                <Label for="search" xl={3}>
+                  Find your spot on the map or search here
+                </Label>
+                <Col xl={9}>
+                  <Input
+                    type="text"
+                    value={this.state.search}
+                    name="searchText"
+                    onChange={this.handleSearch}
+                  />
+
+                  {this.state.searchOptions.map(result => (
+                    <div onClick={e => this.handleSearchSelection(result)}>
+                      {result}
+                      <hr />
+                    </div>
+                  ))}
+                </Col>
+              </FormGroup> 
 
               <FormGroup row>
                 <Col xl={{ size: 9, offset: 3 }}>

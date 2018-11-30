@@ -5,7 +5,7 @@ const postSchema = new Schema({
   title: { type: String, required: true },
   pictures: [String],
   text: { type: String, required: true },
-
+  category: { type: String, enum: ["Moment", "Warning", "Tip", "Question"]},
   location: {
     type: { type: String, required: true },
     coordinates: { type: [Number], required: true }

@@ -6374,3 +6374,20 @@ body {
 .Secret .result {
   font-size: 1.2em;
   color: #11A5A5; }
+
+.profilePage {
+  display: flex;
+  flex-direction: column; }
+  .profilePage h2 {
+    padding: 10px;
+    align-self: center; }
+  .profilePage .bottomBox {
+    display: flex;
+    justify-content: space-around; }
+    .profilePage .bottomBox .rightBox {
+      border: 1px solid black;
+      padding: 40px; }
+    .profilePage .bottomBox .leftBox {
+      width: 370px;
+      border: 1px solid black;
+      padding: 40px; }

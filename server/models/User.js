@@ -8,7 +8,8 @@ const userSchema = new Schema({
   password: String,
   resetPasswordToken: String,
   resetPasswordExpires: String,
-  imageURL: String
+  imageURL: String,
+  public_id: String
 }, {
     timestamps: {
       createdAt: 'created_at',

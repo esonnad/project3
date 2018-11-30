@@ -9,9 +9,18 @@ class Home extends Component {
   render() {                
     return (
       <div className="Home">
-        <h2>Home</h2>
-        <p>This is a sample project with the MERN stack</p>
-        <button className="btn btn-primary">Hello</button>
+      <div className="feli">
+        <div className="card text-center w-50">
+          
+          <div className="card-body">
+          <h5 className="card-title">Project title</h5>
+          <p className="card-text">Text that tells you about the project</p>
+          <a href="#" className="btn btn-primary">Sign up</a>
+          <a href="#" className="btn btn-primary">Log in</a>
+          </div>
+          
+          </div>
+      </div>
       </div>
     );
   }

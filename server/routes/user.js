@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 const parser = require('../configs/cloudinary.js');
+const cloudinary = require('cloudinary');
 
 let transporter = nodemailer.createTransport({
   service: 'Gmail',
@@ -80,7 +81,8 @@ router.get('/verify/:id', (req,res,next)=>{
 
 router.post('/picture', parser.single('picture'), (req,res,next)=>{
   let id = req.user._id;
-  User.findByIdAndUpdate(id, { imageURL: req.file.url })
+  cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
+  User.findByIdAndUpdate(id, { imageURL: req.file.url, public_id: req.file.public_id })
   .then(() => {
     res.json({
       success: true,

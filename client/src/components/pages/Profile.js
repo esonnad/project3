@@ -116,15 +116,13 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div>
+      <div className="profilePage">
         <h2>Here you can edit the details of your profile!</h2>
+        <div className="bottomBox">
+        
 
-        {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
-
-        <form onSubmit={(e)=>this.handleFileSubmit(e)}>
-          <input type="file" onChange={this.handleFileChange} /> <br/>
-          <button type="submit">Save new profile picture</button>
-        </form>
+        <div className="leftBox">
+        <div className="profileInfoBox">
         <form>
           <Label for="username">Username:</Label>
           <Input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
@@ -132,9 +130,11 @@ export default class Profile extends Component {
           <Input type="text" value={this.state.email} name="email" onChange={this.handleChange} />
           <button onClick={(e) => this.handleUserEmailChange(e)}>Update</button>
         </form>
-        {this.state.message && <div className="info">
-          {this.state.message}
-        </div>}
+        </div><hr/>
+
+        
+
+        <div className="profilePasswBox">
         <form>
           <Label for="oldPassword">Old Password:</Label>
           <Input type="password" value={this.state.oldPassword} name="oldPassword" onChange={this.handleChange} />
@@ -144,6 +144,24 @@ export default class Profile extends Component {
           <Input type="password" value={this.state.confirmNewPassword} name="confirmNewPassword" onChange={this.handleChange} />
           <button onClick={(e) => this.handlePasswordChange(e)}>Change</button>
         </form>
+        </div>
+        </div>
+        <div className="middleBox">
+        {this.state.message && <div className="info">
+          {this.state.message}
+        </div>}
+        </div>
+
+        <div className="profilePicBox rightBox">
+        {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
+        <form onSubmit={(e)=>this.handleFileSubmit(e)}>
+          <input type="file" onChange={this.handleFileChange} /> <br/>
+          <button type="submit">Save new profile picture</button>
+        </form>
+        </div>
+
+        </div>
+
       </div>
     )
   }

@@ -1,4 +1,6 @@
-
+// #FFF04C yellow
+// #11A5A5 light sea green
+// #03134C oxford blue
 
 // --------------------
 // Definition of variables
@@ -65,13 +67,17 @@ body {
 
 .MainNavbar {
   min-height: $navbarHeight;
-  margin-bottom: $marginBottomNavbar;
+  // margin-bottom: $marginBottomNavbar;
+  background-color: rgba($color: red, $alpha: 0.5)!important;
   .logo {
-    height: 60px;
+    height: 40px;
     padding-bottom: 4px;
   }
   .navbar-brand {
     padding: 4px 0 0 0;
+  }
+  .nav-link{
+    color:black!important;
   }
 }
 
@@ -116,4 +122,58 @@ body {
     font-size: 1.2em;
     color: $primary;
   }
+}
+
+//___________________
+// Style profile page
+.profilePage {
+  display:flex;
+  flex-direction: column;
+  h2 {
+    padding: 10px;
+    align-self: center;
+  }
+  .bottomBox{
+    display: flex;
+    justify-content: space-around;
+    .rightBox{
+      border: 1px solid black;
+      padding: 40px;
+    }
+    .leftBox{
+      width: 370px;
+      border: 1px solid black;
+      padding: 40px;
+    }
+  }
+}
+body, html {
+  height: 100%;
+}
+
+.Home { 
+  /* The image used */
+  background-image: url("https://78.media.tumblr.com/4e656893030c0464629362fdc50fc005/tumblr_og7ko2IuXz1sxzvapo1_500.jpg");
+
+  /* Full height */
+  height: calc(100vh - 2*#{$navbarHeight});
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* .card-body{
+  width: 50vw
+} */
+
+.feli{
+  height: calc(100vh - #{$navbarHeight});
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
 }

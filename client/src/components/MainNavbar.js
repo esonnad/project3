@@ -34,7 +34,7 @@ export default class MainNavbar extends Component {
       <Navbar color="primary" dark expand="md" className="MainNavbar">
         <NavbarBrand to="/" tag={Link}>
           <img src="../logoPin.png" className="logo" alt="logo" />
-          Pin Point
+          
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>

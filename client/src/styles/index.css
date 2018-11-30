@@ -6347,12 +6347,14 @@ body {
 
 .MainNavbar {
   min-height: 60px;
-  margin-bottom: 20px; }
+  background-color: rgba(255, 0, 0, 0.5) !important; }
   .MainNavbar .logo {
-    height: 60px;
+    height: 40px;
     padding-bottom: 4px; }
   .MainNavbar .navbar-brand {
     padding: 4px 0 0 0; }
+  .MainNavbar .nav-link {
+    color: black !important; }
 
 .Post p {
   font-size: 1.2em; }
@@ -6391,3 +6393,28 @@ body {
       width: 370px;
       border: 1px solid black;
       padding: 40px; }
+
+body, html {
+  height: 100%; }
+
+.Home {
+  /* The image used */
+  background-image: url("https://78.media.tumblr.com/4e656893030c0464629362fdc50fc005/tumblr_og7ko2IuXz1sxzvapo1_500.jpg");
+  /* Full height */
+  height: calc(100vh - 2*60px);
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+/* .card-body{
+  width: 50vw
+} */
+.feli {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch; }

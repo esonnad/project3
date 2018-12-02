@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
   title: { type: String, required: true },
-  pictures: [String],
+  picture: String,
+  public_id: String,
   text: { type: String, required: true },
   category: { type: String, enum: ["Moment", "Warning", "Tip", "Question"]},
   location: {

@@ -1,8 +1,12 @@
 const express = require('express');
 const Post = require('../models/Post')
 const { isLoggedIn } = require('../middlewares')
-
 const router = express.Router();
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const bcryptSalt = 10;
+const parser = require('../configs/cloudinary.js');
+const cloudinary = require('cloudinary');
 
 router.get('/', (req, res, next) => {
   Post.find()
@@ -14,14 +18,35 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', isLoggedIn, (req, res, next) => {
-  let { title, text, lng, lat } = req.body
+  let { title, text, lng, lat, category, picture } = req.body
   let _owner = req.user._id
-  if (!title || !text || !lng || !lat) {
-    next(new Error('You have to send: title, description, pricePerNight, lng, lat'))
+  if (!title || !text || !lng || !lat || !category ) {
+    next(new Error('You have to send: title, description, lng, lat, category, picture'))
   }
+  if(!picture) {
+    Post.create({
+      title: title,
+      text : text,
+      category: category,
+      location: {
+        type: 'Point',
+        coordinates: [lng, lat]
+      },
+      _owner
+    })
+      .then(post => {
+        res.json({
+          success: true,
+          post
+        });
+      })
+      .catch(err => next(err))
+  } else {
   Post.create({
-    title,
-    text,
+    title: title,
+    picture: picture,
+    text : text,
+    category: category,
     location: {
       type: 'Point',
       coordinates: [lng, lat]
@@ -34,7 +59,55 @@ router.post('/', isLoggedIn, (req, res, next) => {
         post
       });
     })
-    .catch(err => next(err))
+    .catch(err => next(err))}
 });
+
+router.get('/myposts', (req,res,next)=>{
+  let id = req.user._id
+  Post.find({_owner:id})
+  .populate('_owner', 'username')
+    .then(posts => {
+      res.json(posts);
+    })
+    .catch(err => next(err))
+})
+
+router.get('/:postid', (req,res,next)=>{
+  let id = req.params.postid
+  Post.findById(id)
+  .populate('_owner', 'username')
+    .then(post => {
+      res.json(post);
+    })
+    .catch(err => next(err))
+})
+
+router.post('/:postid', parser.single('picture'), (req,res,next)=>{
+  let id = req.params.postid
+  cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
+  let { title, text, lng, lat, category } = req.body
+  if (!title || !text || !lng || !lat || !category || !picture) {
+    next(new Error('You have to send: title, description, lng, lat, category, picture'))
+  }
+  Post.findByIdAndUpdate(id, {
+    title: title,
+    picture: picture,
+    text : text,
+    category: category,
+    picture: req.file.url, 
+    public_id: req.file.public_id,
+    location: {
+      type: 'Point',
+      coordinates: [lng, lat]
+    },
+  })
+    .then(update => {
+      res.json({
+        success: true,
+        imageURL: req.file.url
+      })
+    })
+    .catch(err => next(err))
+})
 
 module.exports = router;

@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import Private from './pages/Private';
 import Profile from './pages/Profile';
 import Verification from './pages/Verification';
+import EditPost from './pages/EditPost';
 import api from '../api';
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
           <Route path="/about" component={About} />
 
           <Route path="/posts" component={Posts} />
+          <Route path="/posts/:id" component={EditPost}/>
           <Route path="/private" component={Private} />
           <Route path="/add-post" component={AddPost} />
           <Route path="/myProfile" component={Profile} />

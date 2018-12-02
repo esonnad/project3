@@ -106,4 +106,31 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
+
+  getMyPosts() {
+    return service
+      .get('/posts/myposts')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  getOnePost(id){
+    return service
+      .get(`/posts/${id}`)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  updateOnePost(id, data){
+    const formData = new FormData()
+    formData.append("picture", data.picture)
+    return service
+      .post(`/posts/${id}`, data, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => res.data)
+      .catch(errHandler)   
+  }
 }

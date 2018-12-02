@@ -12,6 +12,7 @@ import {
 } from 'reactstrap'
 import api from '../../api'
 import 'react-autocomplete-input/dist/bundle.css';
+import TextInput from 'react-autocomplete-input';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const geocodingClient = mbxGeocoding({ accessToken: 'pk.eyJ1IjoiZXNvbm5hZCIsImEiOiJjam96eXM0ZGYwMTAwM3ZtdHBiYTZnMnA1In0.bd13D4f1GjPT6iwSU45lTA' });
@@ -45,6 +46,7 @@ class AddPost extends Component {
   }
 
   handleInputChange = (event) => {
+    console.log("event", event)
     let name = event.target.name
     this.setState({
       [name]: event.target.value
@@ -89,16 +91,19 @@ class AddPost extends Component {
     //let newCoords = this.state.searchCoordinates[currentSearch.toString()]
     let newCoords = this.state.searchCoordinates[event];
     if (newCoords) {
+      console.log("setting state. before:", this.state, "coords", newCoords)
       this.setState({
         search: event,
+        searchOptions: [],
         lng: newCoords[0],
         lat: newCoords[1]
       })
+      console.log("after", this.state)
       this.marker.setLngLat({
-        lng: this.state.lng,
-        lat: this.state.lat
+        lng: newCoords[0],
+        lat: newCoords[1]
       })
-      this.map.setCenter([this.state.lng, this.state.lat])
+      this.map.setCenter([newCoords[0], newCoords[1]])
     } 
   };
 
@@ -174,7 +179,7 @@ class AddPost extends Component {
   render() {
     return (
       <Container className="AddPost">
-        <h2>Add your Post</h2>
+        <h2>Mark your spot</h2>
 
         <Row>
           <Col md={6}>
@@ -182,7 +187,7 @@ class AddPost extends Component {
               <FormGroup row>
                 <Label for="title" xl={3}>Title</Label>
                 <Col xl={9}>
-                  <Input type="text" value={this.state.title} name="title" onSelect={this.handleInputChange} />
+                  <Input type="text" value={this.state.title} name="title" onChange={this.handleInputChange} />
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -192,7 +197,7 @@ class AddPost extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-              <Label for="text" xl={3}>Category</Label>
+              <Label for="category" xl={3}>Category</Label>
                 <Col xl={9}>
                   <Input type="select" value={this.state.category} name="category" cols="30" rows="5" onChange={this.handleInputChange}>
                   <option>Moment</option>
@@ -203,7 +208,7 @@ class AddPost extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="text" xl={3}>Add a picture</Label>
+                <Label for="pictureUrl" xl={3}>Add a picture</Label>
                 <Col xl={9}>
                   <Input type="file" value={this.state.pictureUrl} name="pictureUrl" cols="30" rows="5" onChange={this.handleInputChange} />
                 </Col>

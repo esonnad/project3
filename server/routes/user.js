@@ -17,6 +17,7 @@ let transporter = nodemailer.createTransport({
 });
 
 router.get('/', (req,res,next)=>{
+  console.log("there is a user:", req.user)
   res.json(req.user);
 })
 

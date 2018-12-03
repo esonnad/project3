@@ -22,6 +22,7 @@ export default class MainNavbar extends Component {
     };
   }
   handleLogoutClick(e) {
+    e.preventDefault();
     api.logout()
     .then(result => {
       console.log('SUCCESS!', result)

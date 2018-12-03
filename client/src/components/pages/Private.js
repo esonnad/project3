@@ -64,7 +64,8 @@ class Private extends Component {
     );
   }
   componentDidMount() {
-    api.getPosts()
+    console.log("USER", this.props.user)
+    api.getMyPosts()
       .then(posts => {
         console.log(posts)
         this.setState({
@@ -72,7 +73,7 @@ class Private extends Component {
             const [lng, lat] = post.location.coordinates
             return {
               ...post,
-              marker: new mapboxgl.Marker({ color: 'red' })
+              marker: new mapboxgl.Marker({ color: 'blue' })
                 .setLngLat([lng, lat])
                 .on('click', () => { console.log("clicked") })
                 .addTo(this.map)

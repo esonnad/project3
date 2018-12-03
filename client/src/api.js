@@ -70,7 +70,12 @@ export default {
   getUser () {
     return service
       .get('/user')
-      .then(res => res.data)
+      .then(res => {
+        res.data
+        console.log("api data", res.data)
+        return res.data
+      })
+  
       .catch(errHandler)
   },
 

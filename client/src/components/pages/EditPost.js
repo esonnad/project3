@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import api from '../../api';
 import {
   Button,
   Col,
@@ -7,46 +8,47 @@ import {
   FormGroup,
   Input,
   Label,
-  Select,
   Row,
 } from 'reactstrap'
-import api from '../../api'
+import { picture } from 'cloudinary/lib/cloudinary';
 import 'react-autocomplete-input/dist/bundle.css';
-import TextInput from 'react-autocomplete-input';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const geocodingClient = mbxGeocoding({ accessToken: 'pk.eyJ1IjoiZXNvbm5hZCIsImEiOiJjam96eXM0ZGYwMTAwM3ZtdHBiYTZnMnA1In0.bd13D4f1GjPT6iwSU45lTA' });
 
-// TODO:
-// Create a function for random picture 
-// Set copyright in footer
-// Set opacity at footer and navbar
-// position button at landing page
-// link buttons without ahref
-
-class AddPost extends Component {
-  constructor(props) {
+export default class EditPost extends Component {
+  constructor(props){
     super(props)
-
     this.state = {
       title: "",
+      pictureUrl: "",
+      pictureFile: "",
       text: "",
-      search: "",
-      category: "Moment",
+      category: "",
+      lng: "",
+      lat: "",
       searchOptions: [],
       searchCoordinates: {},
-      pictureUrl: "",
-      lng: 13.3711224,
-      lat: 52,
       message: null
     }
-    this.mapRef = React.createRef()
-    this.map = null
-    this.marker = null
   }
-
-  handleInputChange = (event) => {
-    console.log("event", event)
+  componentDidMount(){
+    let id = this.props.match.params.id
+    api.getOnePost(id)
+      .then(post=>{
+        this.setState({
+          title: post.title,
+          pictureUrl: post.picture,
+          pictureFile: "",
+          text: post.text,
+          category: post.category,
+          lng: post.lng,
+          lat: post.lat,
+        })
+        this.initMap();
+      })
+  }
+  handleChange = (event) => {
     let name = event.target.name
     this.setState({
       [name]: event.target.value
@@ -54,6 +56,35 @@ class AddPost extends Component {
       if (this.marker && (name === 'lat' || name === 'lng')) {
         this.marker.setLngLat([this.state.lng, this.state.lat])
       }
+    })
+  }
+  initMap() {
+    
+    // Init the map where "this.mapRef" is defined in the render
+    this.map = new mapboxgl.Map({
+      container: this.mapRef.current,
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [this.state.lng, this.state.lat],
+      zoom: 15
+    })
+
+
+    // Add zoom control on the top right corner
+    this.map.addControl(new mapboxgl.NavigationControl())
+
+    // Create a marker on the map
+    this.marker = new mapboxgl.Marker({ color: 'red', draggable: true })
+      .setLngLat([this.state.lng, this.state.lat])
+      .addTo(this.map)
+
+
+    // Trigger a function every time the marker is dragged
+    this.marker.on('drag', () => {
+      let {lng,lat} = this.marker.getLngLat()
+      this.setState({
+        lng,
+        lat
+      })
     })
   }
 
@@ -91,23 +122,26 @@ class AddPost extends Component {
     //let newCoords = this.state.searchCoordinates[currentSearch.toString()]
     let newCoords = this.state.searchCoordinates[event];
     if (newCoords) {
-      console.log("setting state. before:", this.state, "coords", newCoords)
       this.setState({
         search: event,
-        searchOptions: [],
         lng: newCoords[0],
         lat: newCoords[1]
       })
-      console.log("after", this.state)
       this.marker.setLngLat({
-        lng: newCoords[0],
-        lat: newCoords[1]
+        lng: this.state.lng,
+        lat: this.state.lat
       })
-      this.map.setCenter([newCoords[0], newCoords[1]])
+      this.map.setCenter([this.state.lng, this.state.lat])
     } 
   };
+  handleFileChange=(e)=> {
+    e.preventDefault()
+     this.setState({
+       imageFile: e.target.files[0]
+     })
+   }
 
-  handleClick(e) {
+  handleSubmit(e) {
     e.preventDefault()
     let data = {
       title: this.state.title,
@@ -115,15 +149,18 @@ class AddPost extends Component {
       lng: this.state.lng,
       lat: this.state.lat,
       category: this.state.category,
-      picture: this.state.pictureUrl,
+      picture: this.state.imageFile,
     }
-    api.addPost(data)
-      .then(result => {
+    this.setState({
+      pictureURL: "",
+      message: "Image loading..."
+    })
+    let id = this.props.match.params.id
+    api.updateOnePost(id, data)
+      .then(updated => {
         this.setState({
-          title: "",
-          text: "",
-          pictureURL: "",
-          message: `Your post has been created`
+          pictureURL: data.imageURL,
+          message: `Your post has been updated`
         })
         setTimeout(() => {
           this.setState({
@@ -133,56 +170,12 @@ class AddPost extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
-  componentDidMount() {
-    this.setPosition();
-  }
 
-  setPosition= () => {
-    navigator.geolocation.getCurrentPosition((location) =>{
-      let latitude = location.coords.latitude;
-      let longitude = location.coords.longitude;
-      this.setState ({
-        lng: longitude,
-        lat: latitude
-      })
-
-      this.initMap();
-
-    });
-  }
-  initMap() {
-    
-    // Init the map where "this.mapRef" is defined in the render
-    this.map = new mapboxgl.Map({
-      container: this.mapRef.current,
-      style: 'mapbox://styles/mapbox/streets-v10',
-      center: [this.state.lng, this.state.lat],
-      zoom: 15
-    })
-
-
-    // Add zoom control on the top right corner
-    this.map.addControl(new mapboxgl.NavigationControl())
-
-    // Create a marker on the map
-    this.marker = new mapboxgl.Marker({ color: 'red', draggable: true })
-      .setLngLat([this.state.lng, this.state.lat])
-      .addTo(this.map)
-
-
-    // Trigger a function every time the marker is dragged
-    this.marker.on('drag', () => {
-      let {lng,lat} = this.marker.getLngLat()
-      this.setState({
-        lng,
-        lat
-      })
-    })
-  }
   render() {
     return (
-      <Container className="AddPost">
-        <h2>Mark your spot</h2>
+      <div>
+        <Container className="AddPost">
+        <h2>Edit your post</h2>
 
         <Row>
           <Col md={6}>
@@ -190,19 +183,19 @@ class AddPost extends Component {
               <FormGroup row>
                 <Label for="title" xl={3}>Title</Label>
                 <Col xl={9}>
-                  <Input type="text" value={this.state.title} name="title" onChange={this.handleInputChange} />
+                  <Input type="text" value={this.state.title} name="title" onChange={this.handleChange} />
                 </Col>
               </FormGroup>
               <FormGroup row>
                 <Label for="text" xl={3}>Text</Label>
                 <Col xl={9}>
-                  <Input type="textarea" value={this.state.text} name="text" cols="30" rows="5" onChange={this.handleInputChange} />
+                  <Input type="textarea" value={this.state.text} name="text" cols="30" rows="5" onChange={this.handleChange} />
                 </Col>
               </FormGroup>
               <FormGroup row>
               <Label for="category" xl={3}>Category</Label>
                 <Col xl={9}>
-                  <Input type="select" value={this.state.category} name="category" cols="30" rows="5" onChange={this.handleInputChange}>
+                  <Input type="select" value={this.state.category} name="category" cols="30" rows="5" onChange={this.handleChange}>
                   <option value="Moment">Moment</option>
                   <option value="Question">Question</option>
                   <option value="Tip">Tip</option>
@@ -211,13 +204,10 @@ class AddPost extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-<<<<<<< HEAD
-                <Label for="pictureUrl" xl={3}>Add a picture</Label>
-=======
-                <Label for="pictureURL" xl={3}>Add a picture</Label>
->>>>>>> 3a7b8c113f57b9d28f6940f034794123cb88a0ae
+                <Label for="pictureURL" xl={3}>Add/Change picture</Label>
+                {this.state.pictureUrl!=="" && <img src={this.state.pictureUrl} style={{height: 200}} />}
                 <Col xl={9}>
-                  <Input type="file" value={this.state.pictureUrl} name="pictureUrl" cols="30" rows="5" onChange={this.handleInputChange} />
+                  <Input type="file" name="pictureUrl" cols="30" rows="5" onChange={this.handleFileChange} />
                 </Col>
               </FormGroup>
 
@@ -245,7 +235,7 @@ class AddPost extends Component {
 
               <FormGroup row>
                 <Col xl={{ size: 9, offset: 3 }}>
-                  <Button color="primary" onClick={(e) => this.handleClick(e)}>Create it!</Button>
+                  <Button color="primary" onClick={(e) => this.handleSubmit(e)}>Update it!</Button>
                 </Col>
               </FormGroup>
 
@@ -260,8 +250,7 @@ class AddPost extends Component {
           {this.state.message}
         </div>}
       </Container>
+      </div>
     )
   }
 }
-
-export default AddPost

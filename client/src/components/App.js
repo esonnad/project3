@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import Verification from './pages/Verification';
 import ProtectedRoute from './pages/Protected';
 
+import EditPost from './pages/EditPost';
 import api from '../api';
 
 class App extends Component {
@@ -47,6 +48,8 @@ class App extends Component {
           <Route path="/about" component={About} />
 
           <Route path="/explore" component={Explore} />
+          <Route path="/posts" component={Posts} /> {/*  delete this */}
+          <Route path="/posts/:id" component={EditPost}/>
           <Route path="/private" component={Private} />
           <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />
           <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />

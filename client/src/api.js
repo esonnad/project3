@@ -25,9 +25,10 @@ export default {
     return service
       .post('/signup', userInfo)
       .then(res => {
+        console.log("data", res.data)
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
         localStorage.setItem('user', JSON.stringify(res.data))
-        res.data
+        return res.data
       })
       .catch(errHandler)
   },

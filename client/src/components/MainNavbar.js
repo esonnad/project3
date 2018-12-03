@@ -23,6 +23,10 @@ export default class MainNavbar extends Component {
   }
   handleLogoutClick(e) {
     api.logout()
+    .then(result => {
+      console.log('SUCCESS!', result)
+      this.props.getUser(null)})
+
   }
   toggle() {
     this.setState({

@@ -3,7 +3,7 @@ import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import MainNavbar from './MainNavbar';
 import MainFooter from './MainFooter';
 import Home from './pages/Home';
-import Posts from './pages/Posts';
+import Explore from './pages/Explore';
 import AddPost from './pages/AddPost';
 import About from './pages/About';
 import Login from './pages/Login';
@@ -11,15 +11,24 @@ import Signup from './pages/Signup';
 import Private from './pages/Private';
 import Profile from './pages/Profile';
 import Verification from './pages/Verification';
+import ProtectedRoute from './pages/Protected';
+
 import api from '../api';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      countries: []
+      loggedInUser: null
     }
-    // api.loadUser();
+    //api.loadUser();
+  }
+
+  getTheUser= (userObj) => {
+    console.log("get the user", userObj)
+    this.setState({
+      loggedInUser: userObj
+    })
   }
 
   handleLogoutClick(e) {
@@ -29,17 +38,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MainNavbar />
+        <MainNavbar getUser={this.getTheUser}/>
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
+          <Route path="/home"  component={Home} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/" exact component={Explore} />
+          <Route path="/signup" render={() => <Signup getUser={this.getTheUser}/>}/>
+          <Route path="/login" render={() => <Login getUser={this.getTheUser}/>} />
           <Route path="/about" component={About} />
 
-          <Route path="/posts" component={Posts} />
+          <Route path="/explore" component={Explore} />
           <Route path="/private" component={Private} />
-          <Route path="/add-post" component={AddPost} />
-          <Route path="/myProfile" component={Profile} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />
           <Route path="/verifyemail/:id" component={Verification} />
           
           <Route render={() => <h2>404</h2>} />

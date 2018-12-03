@@ -13,10 +13,10 @@ class Home extends Component {
         <div className="card text-center w-50">
           
           <div className="card-body">
-          <h5 className="card-title">Project title</h5>
+          <h5 className="card-title">Welcome</h5>
           <p className="card-text">Text that tells you about the project</p>
-          <a href="#" className="btn btn-primary">Sign up</a>
-          <a href="#" className="btn btn-primary">Log in</a>
+          <a href="/signup" className="btn btn-primary">Sign up</a>
+          <a href="/login" className="btn btn-primary">Log in</a>
           </div>
           
           </div>

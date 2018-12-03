@@ -211,11 +211,7 @@ class AddPost extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-<<<<<<< HEAD
-                <Label for="pictureUrl" xl={3}>Add a picture</Label>
-=======
                 <Label for="pictureURL" xl={3}>Add a picture</Label>
->>>>>>> 3a7b8c113f57b9d28f6940f034794123cb88a0ae
                 <Col xl={9}>
                   <Input type="file" value={this.state.pictureUrl} name="pictureUrl" cols="30" rows="5" onChange={this.handleInputChange} />
                 </Col>

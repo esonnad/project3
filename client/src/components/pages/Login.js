@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from "react-router-dom";
 import api from '../../api';
 
 class Login extends Component {
@@ -21,9 +22,9 @@ class Login extends Component {
     e.preventDefault()
     api.login(this.state.username, this.state.password)
       .then(result => {
-        console.log('SUCCESS!')
+        console.log('SUCCESS! user:', result)
         this.props.getUser(result)
-        this.props.history.push("/") // Redirect to the home page
+        //this.props.history.push("/explore") // Redirect to the explore page
       })
       .catch(err => this.setState({ message: err.toString() }))
   }

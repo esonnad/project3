@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, NavLink, Switch } from 'react-router-dom';
+import { Route, Link, NavLink, Switch, Redirect } from 'react-router-dom';
 import MainNavbar from './MainNavbar';
 import MainFooter from './MainFooter';
 import Home from './pages/Home';
@@ -43,12 +43,17 @@ class App extends Component {
         <Switch>
           <Route path="/home"  component={Home} />
           <ProtectedRoute user={this.state.loggedInUser} path="/" exact component={Explore} />
-          <Route path="/signup" render={() => <Signup getUser={this.getTheUser}/>}/>
-          <Route path="/login" render={() => <Login getUser={this.getTheUser}/>} />
+          <Route path="/signup" render={() => this.state.loggedInUser ? (
+    <Redirect to="/"/>
+  ) : (
+  <Signup getUser={this.getTheUser}/>)} />
+          <Route path="/login" render={() => this.state.loggedInUser ? (
+    <Redirect to="/"/>
+  ) : (
+  <Login getUser={this.getTheUser}/>)} />
           <Route path="/about" component={About} />
 
           <Route path="/explore" component={Explore} />
-          <Route path="/posts" component={Posts} /> {/*  delete this */}
           <Route path="/posts/:id" component={EditPost}/>
           <Route path="/private" component={Private} />
           <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />

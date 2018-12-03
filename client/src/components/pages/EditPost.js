@@ -10,7 +10,6 @@ import {
   Label,
   Row,
 } from 'reactstrap'
-import { picture } from 'cloudinary/lib/cloudinary';
 import 'react-autocomplete-input/dist/bundle.css';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');

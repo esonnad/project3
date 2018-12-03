@@ -2,9 +2,6 @@ const express = require('express');
 const Post = require('../models/Post')
 const { isLoggedIn } = require('../middlewares')
 const router = express.Router();
-const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
-const bcryptSalt = 10;
 const parser = require('../configs/cloudinary.js');
 const cloudinary = require('cloudinary');
 

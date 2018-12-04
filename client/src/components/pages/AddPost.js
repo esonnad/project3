@@ -36,10 +36,12 @@ class AddPost extends Component {
       privacy: "Private",
       searchOptions: [],
       searchCoordinates: {},
-      // pictureUrl: "",
       lng: 13.3711224,
       lat: 52,
-      message: null
+      message: null,
+      pictureUrl: "",
+      file: null,
+      public_id: "",
     }
     this.mapRef = React.createRef()
     this.map = null
@@ -56,6 +58,24 @@ class AddPost extends Component {
         this.marker.setLngLat([this.state.lng, this.state.lat])
       }
     })
+  }
+
+  handleFileChange=(e)=>{
+    e.preventDefault();
+    this.setState({
+      file: e.target.files[0],
+      pictureUrl: "",
+      message: "Image loading..."
+    })
+    api.uploadPostPicture(this.state.file, this.state.public_id)
+    .then(data => {
+      this.setState({
+        pictureUrl: data.imageURL,
+        public_id: data.public_id,
+        message: null
+      })
+    })
+
   }
 
   handleSearch = (event) => {
@@ -117,7 +137,7 @@ class AddPost extends Component {
       lat: this.state.lat,
       category: this.state.category,
       privacy: this.state.privacy,
-      // picture: this.state.pictureUrl,
+      //picture: this.state.pictureUrl,
     }
     api.addPost(data)
       .then(result => {
@@ -222,12 +242,13 @@ class AddPost extends Component {
                   </Input>
                 </Col>
               </FormGroup>
-              {/* <FormGroup row>
+              {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
+              <FormGroup row>
                 <Label for="pictureURL" xl={3}>Add a picture</Label>
                 <Col xl={9}>
-                  <Input type="file" value={this.state.pictureUrl} name="pictureUrl" cols="30" rows="5" onChange={this.handleInputChange} />
+                  <Input type="file" name="pictureUrl" cols="30" rows="5" onChange={this.handleFileChange} />
                 </Col>
-              </FormGroup> */}
+              </FormGroup>
 
               
               <FormGroup row>

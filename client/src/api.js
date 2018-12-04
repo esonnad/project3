@@ -67,6 +67,19 @@ export default {
       .catch(errHandler)
   },
 
+  uploadPostPicture(file, public_id){
+    const formData = new FormData()
+    formData.append("picture", file)
+    return service
+      .post('/posts/picture', formData, public_id,{
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   getUser () {
     return service
       .get('/user')
@@ -138,5 +151,7 @@ export default {
       })
       .then(res => res.data)
       .catch(errHandler)   
-  }
+  },
+
+
 }

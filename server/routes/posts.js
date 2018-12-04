@@ -84,6 +84,14 @@ router.get('/:postid', (req,res,next)=>{
     .catch(err => next(err))
 })
 
+router.post('/picture', parser.single('picture'), (req,res,next)=>{
+  if(req.body.public_id || req.body.public_id !== ""){cloudinary.v2.uploader.destroy(req.body.public_id, function(result) { console.log(result) });}
+  res.json({
+    imageURL: req.file.url,
+    public_id: req.file.public_id
+  })
+})
+
 router.post('/:postid', parser.single('picture'), (req,res,next)=>{
   let id = req.params.postid
   cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });

@@ -7,6 +7,7 @@ const postSchema = new Schema({
   public_id: String,
   text: { type: String, required: true },
   category: { type: String, enum: ["Moment", "Warning", "Tip", "Question"]},
+  privacy: {type: String, enum: ["Public", "Anonymous", "Private"]},
   location: {
     type: { type: String, required: true },
     coordinates: { type: [Number], required: true }

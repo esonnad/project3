@@ -37,8 +37,8 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/about" component={About} />
 
-          <Route path="/posts" component={Posts} />
           <Route path="/posts/:id" component={EditPost}/>
+          <Route path="/posts" component={Posts} />
           <Route path="/private" component={Private} />
           <Route path="/add-post" component={AddPost} />
           <Route path="/myProfile" component={Profile} />

@@ -6,16 +6,16 @@ const parser = require('../configs/cloudinary.js');
 const cloudinary = require('cloudinary');
 
 router.get('/', (req, res, next) => {
-  Post.find()
-  .populate('_owner', 'username') // Populate on the field 'username' and '_id' (default) ==> avoid displaying the hash password that could be a security issue
-    .then(posts => {
-      res.json(posts);
+  Promise.all[Post.find({privacy: "Public"}).populate('_owner', 'username'), Post.find({privacy: "Anonymous"})]
+   // Populate on the field 'username' and '_id' (default) ==> avoid displaying the hash password that could be a security issue
+    .then(([postsPublic, postsAnonymous]) => {
+      res.json(postsPublic, postsAnonymous);
     })
     .catch(err => next(err))
 });
 
 router.post('/', isLoggedIn, (req, res, next) => {
-  let { title, text, lng, lat, category, picture } = req.body
+  let { title, text, lng, lat, category, privacy, picture } = req.body
   let _owner = req.user._id
   if (!title || !text || !lng || !lat || !category ) {
     next(new Error('You have to send: title, description, lng, lat, category, picture'))
@@ -25,6 +25,7 @@ router.post('/', isLoggedIn, (req, res, next) => {
       title: title,
       text : text,
       category: category,
+      privacy: privacy,
       location: {
         type: 'Point',
         coordinates: [lng, lat]
@@ -44,6 +45,7 @@ router.post('/', isLoggedIn, (req, res, next) => {
     picture: picture,
     text : text,
     category: category,
+    privacy: privacy,
     location: {
       type: 'Point',
       coordinates: [lng, lat]

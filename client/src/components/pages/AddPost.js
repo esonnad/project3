@@ -32,9 +32,10 @@ class AddPost extends Component {
       text: "",
       search: "",
       category: "Moment",
+      ptivacy: "Private",
       searchOptions: [],
       searchCoordinates: {},
-      pictureUrl: "",
+      // pictureUrl: "",
       lng: 13.3711224,
       lat: 52,
       message: null
@@ -110,14 +111,15 @@ class AddPost extends Component {
       lng: this.state.lng,
       lat: this.state.lat,
       category: this.state.category,
-      picture: this.state.pictureUrl,
+      privacy: this.state.privacy,
+      // picture: this.state.pictureUrl,
     }
     api.addPost(data)
       .then(result => {
         this.setState({
           title: "",
           text: "",
-          pictureURL: "",
+          // pictureURL: "",
           message: `Your post has been created`
         })
         setTimeout(() => {
@@ -206,11 +208,21 @@ class AddPost extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
+              <Label for="privacy" xl={3}>Privacy Settings</Label>
+                <Col xl={9}>
+                  <Input type="select" value={this.state.privacy} name="privacy" cols="30" rows="5" onChange={this.handleInputChange}>
+                  <option value="Private">Private</option>
+                  <option value="Anonymous">Anonymous</option>
+                  <option value="Public">Public</option>
+                  </Input>
+                </Col>
+              </FormGroup>
+              {/* <FormGroup row>
                 <Label for="pictureURL" xl={3}>Add a picture</Label>
                 <Col xl={9}>
                   <Input type="file" value={this.state.pictureUrl} name="pictureUrl" cols="30" rows="5" onChange={this.handleInputChange} />
                 </Col>
-              </FormGroup>
+              </FormGroup> */}
 
               
               <FormGroup row>

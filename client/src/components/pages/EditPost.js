@@ -10,7 +10,6 @@ import {
   Label,
   Row,
 } from 'reactstrap'
-import { picture } from 'cloudinary/lib/cloudinary';
 import 'react-autocomplete-input/dist/bundle.css';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
@@ -21,8 +20,8 @@ export default class EditPost extends Component {
     super(props)
     this.state = {
       title: "",
-      pictureUrl: "",
-      pictureFile: "",
+      // pictureUrl: "",
+      // pictureFile: "",
       text: "",
       category: "",
       lng: "",
@@ -31,6 +30,9 @@ export default class EditPost extends Component {
       searchCoordinates: {},
       message: null
     }
+    this.mapRef = React.createRef()
+    this.map = null
+    this.marker = null
   }
   componentDidMount(){
     let id = this.props.match.params.id
@@ -38,12 +40,12 @@ export default class EditPost extends Component {
       .then(post=>{
         this.setState({
           title: post.title,
-          pictureUrl: post.picture,
-          pictureFile: "",
+          // pictureUrl: post.picture,
+          // pictureFile: "",
           text: post.text,
           category: post.category,
-          lng: post.lng,
-          lat: post.lat,
+          lng: post.location.coordinates[0],
+          lat: post.location.coordinates[1],
         })
         this.initMap();
       })
@@ -134,12 +136,12 @@ export default class EditPost extends Component {
       this.map.setCenter([this.state.lng, this.state.lat])
     } 
   };
-  handleFileChange=(e)=> {
-    e.preventDefault()
-     this.setState({
-       imageFile: e.target.files[0]
-     })
-   }
+  // handleFileChange=(e)=> {
+  //   e.preventDefault()
+  //    this.setState({
+  //      imageFile: e.target.files[0]
+  //    })
+  //  }
 
   handleSubmit(e) {
     e.preventDefault()
@@ -149,17 +151,17 @@ export default class EditPost extends Component {
       lng: this.state.lng,
       lat: this.state.lat,
       category: this.state.category,
-      picture: this.state.imageFile,
+      // picture: this.state.pictureFile,
     }
     this.setState({
-      pictureURL: "",
+      // pictureURL: "",
       message: "Image loading..."
     })
     let id = this.props.match.params.id
     api.updateOnePost(id, data)
       .then(updated => {
         this.setState({
-          pictureURL: data.imageURL,
+          // pictureURL: data.imageURL,
           message: `Your post has been updated`
         })
         setTimeout(() => {
@@ -203,13 +205,13 @@ export default class EditPost extends Component {
                   </Input>
                 </Col>
               </FormGroup>
-              <FormGroup row>
+              {/* <FormGroup row>
                 <Label for="pictureURL" xl={3}>Add/Change picture</Label>
                 {this.state.pictureUrl!=="" && <img src={this.state.pictureUrl} style={{height: 200}} />}
                 <Col xl={9}>
                   <Input type="file" name="pictureUrl" cols="30" rows="5" onChange={this.handleFileChange} />
                 </Col>
-              </FormGroup>
+              </FormGroup> */}
 
               
               <FormGroup row>

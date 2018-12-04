@@ -50,16 +50,17 @@ class Posts extends Component {
               ))}
             </ListGroup>
           </Col>
-          <Col sm={4} className="col-text">
+          {/* <Col sm={4} className="col-text">
             <Switch>
               <Route path="/posts/:id" render={(props) => <PostDetail {...props} posts={this.state.posts} />} />
               <Route render={() => <h2>Select a Post</h2>} />
             </Switch>
-          </Col>
+          </Col> */}
           <Col sm={5}>
             <div ref={this.mapRef} className="map"></div>
           </Col>
         </Row>
+        {/* <div ref={this.mapRef} className="map"></div> */}
       </div>
     );
   }
@@ -67,6 +68,7 @@ class Posts extends Component {
     api.getPosts()
       .then(posts => {
         console.log(posts)
+        posts = [...posts.public, ...posts.anonymous]
         this.setState({
           posts: posts.map(post => {
             const [lng, lat] = post.location.coordinates
@@ -75,8 +77,12 @@ class Posts extends Component {
               marker: new mapboxgl.Marker({ color: 'red' })
                 .setLngLat([lng, lat])
                 .on('click', () => { console.log("clicked") })
+                .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
+                  
+                  .setText(post.title))
                 .addTo(this.map)
             }
+
           })
         })
       })

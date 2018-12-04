@@ -53,7 +53,7 @@ class Private extends Component {
           <Col sm={4} className="col-text">
             <Switch>
               <Route path="/posts/:id" render={(props) => <PostDetail {...props} posts={this.state.posts} />} />
-              <Route render={() => <h2>Select a Post</h2>} />
+              {/* <Route render={() => <h2>Select a Post</h2>} /> */}
             </Switch>
           </Col>
           <Col sm={5}>
@@ -74,6 +74,7 @@ class Private extends Component {
             return {
               ...post,
               marker: new mapboxgl.Marker({ color: 'blue' })
+              
                 .setLngLat([lng, lat])
                 .on('click', () => { console.log("clicked") })
                 .addTo(this.map)

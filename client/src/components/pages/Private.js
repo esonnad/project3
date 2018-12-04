@@ -28,7 +28,7 @@ class Private extends Component {
       container: this.mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v10',
       center: [0, 0], // Africa lng,lat
-      zoom: 5
+      zoom: 15
     })
 
     // Add zoom control on the top right corner

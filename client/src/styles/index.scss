@@ -19,6 +19,7 @@ $navbarHeight: 60px;
 // --------------------
 // Style reusable for all components
 body {
+  background-color: #11A5A5;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -68,7 +69,7 @@ body {
 .MainNavbar {
   min-height: $navbarHeight;
   // margin-bottom: $marginBottomNavbar;
-  background-color: rgba($color: red, $alpha: 0.5)!important;
+  background-color: #11A5A5!important;
   .logo {
     height: 40px;
     padding-bottom: 4px;
@@ -107,11 +108,9 @@ body {
         margin-top: 40px;
       }
     }
+    
 
-    .map {
-      height: 100%;
-      //height: calc(100vh - #{$navbarHeight});
-    }
+   
   }
 }
 
@@ -189,4 +188,40 @@ body, html {
 	justify-content: center;
 	align-items: center;
 	align-content: stretch;
+}
+
+.mapboxgl-map {
+  width: 100% ;
+  height: 500px;
+   //height: calc(100vh - #{$navbarHeight});
+ }
+
+ .card-container {
+   border-top: 2px solid #03134C;
+   background-color: #11A5A5;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+   padding: 10px;
+ }
+
+ .card {
+   color: black;
+   font-family: 'Montserrat', sans-serif;
+   border-radius: 3px;
+   padding: 5px 10px 5px 10px;
+   margin: 5px;
+   box-shadow: 10px 10px 12px -8px rgba(0,0,0,0.3);
+   border-left: 6px solid #FFF04C;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ .page-title {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #11A5A5;
+  color: white;
 }

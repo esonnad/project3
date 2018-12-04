@@ -28,7 +28,7 @@ class Posts extends Component {
       container: this.mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v10',
       center: [0, 0], // Africa lng,lat
-      zoom: 5
+      zoom: 15
     })
 
     // Add zoom control on the top right corner
@@ -39,29 +39,20 @@ class Posts extends Component {
   }
   render() {
     return (
-      <div className="Posts">
-        <Row>
-          <Col sm={3} className="col-text">
-            <ListGroup>
-              {this.state.posts.map((h, i) => (
-                <ListGroupItem key={h._id} action tag={NavLink} to={"/posts/" + h._id} onClick={() => this.handlePostSelection(i)}>
-                  {h.title} by {h._owner.username}
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </Col>
-          {/* <Col sm={4} className="col-text">
-            <Switch>
-              <Route path="/posts/:id" render={(props) => <PostDetail {...props} posts={this.state.posts} />} />
-              <Route render={() => <h2>Select a Post</h2>} />
-            </Switch>
-          </Col> */}
-          <Col sm={5}>
-            <div ref={this.mapRef} className="map"></div>
-          </Col>
-        </Row>
-        {/* <div ref={this.mapRef} className="map"></div> */}
+      <React.Fragment>
+
+      <h1 class="page-title">Explore</h1>
+      <div class="card-container">
+        {this.state.posts.map(post=>
+          <div class="card">
+          <p class="card-title">{post.title}</p>
+          </div>
+        )}
       </div>
+
+      <div  ref={this.mapRef} ></div>
+      </React.Fragment>
+   
     );
   }
   componentDidMount() {
@@ -76,9 +67,7 @@ class Posts extends Component {
               ...post,
               marker: new mapboxgl.Marker({ color: 'red' })
                 .setLngLat([lng, lat])
-                .on('click', () => { console.log("clicked") })
                 .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
-                  
                   .setText(post.title))
                 .addTo(this.map)
             }

@@ -18,7 +18,6 @@ import api from '../api';
 
 class App extends Component {
   constructor(props) {
-    console.log("App constructor")
     super(props)
     this.state = {
       loggedInUser: null
@@ -26,22 +25,17 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log("App mounting")
     api.getUser()
     .then(result => {
-      console.log("FRONT END", result)
       let apiUser = result;
-      console.log("Called API. user", apiUser)
       this.setState({
         loggedInUser: apiUser
       })
     })
     .catch(error => console.log(error))
-    console.log("state", this.state)
   }
 
   getTheUser= (userObj) => {
-    console.log("get the user", userObj)
     this.setState({
       loggedInUser: userObj
     })

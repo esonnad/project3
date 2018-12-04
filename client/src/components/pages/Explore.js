@@ -75,8 +75,11 @@ class Posts extends Component {
               marker: new mapboxgl.Marker({ color: 'red' })
                 .setLngLat([lng, lat])
                 .on('click', () => { console.log("clicked") })
+                .setPopup(new mapboxgl.Popup({ offset: 25 })
+                  .setText('Construction on the Washington Monument began in 1848.'))
                 .addTo(this.map)
             }
+
           })
         })
       })

@@ -22,7 +22,12 @@ export default class MainNavbar extends Component {
     };
   }
   handleLogoutClick(e) {
+    e.preventDefault();
     api.logout()
+    .then(result => {
+      console.log('SUCCESS!', result)
+      this.props.getUser(null)})
+
   }
   toggle() {
     this.setState({
@@ -54,7 +59,7 @@ export default class MainNavbar extends Component {
             </NavItem>}
               
             {api.isLoggedIn() && <NavItem>
-              <NavLink tag={NLink} to="/posts">Explore</NavLink>
+              <NavLink tag={NLink} to="/explore">Explore</NavLink>
             </NavItem>}
             {api.isLoggedIn() && <NavItem>
               <NavLink tag={NLink} to="/private">My Spots</NavLink>

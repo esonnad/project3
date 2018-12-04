@@ -137,14 +137,15 @@ class AddPost extends Component {
       lat: this.state.lat,
       category: this.state.category,
       privacy: this.state.privacy,
-      //picture: this.state.pictureUrl,
+      picture: this.state.pictureUrl,
+      public_id: this.state.public_id
     }
     api.addPost(data)
       .then(result => {
         this.setState({
           title: "",
           text: "",
-          // pictureURL: "",
+          pictureURL: "",
           message: `Your post has been created`
         })
         setTimeout(() => {

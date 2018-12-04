@@ -70,13 +70,15 @@ class Posts extends Component {
         this.setState({
           posts: posts.map(post => {
             const [lng, lat] = post.location.coordinates
+            console.log(new mapboxgl.Popup({ offset: 25 })
+            .setText(post.title))
             return {
               ...post,
               marker: new mapboxgl.Marker({ color: 'red' })
                 .setLngLat([lng, lat])
                 .on('click', () => { console.log("clicked") })
                 .setPopup(new mapboxgl.Popup({ offset: 25 })
-                  .setText('Construction on the Washington Monument began in 1848.'))
+                  .setText(post.title))
                 .addTo(this.map)
             }
 

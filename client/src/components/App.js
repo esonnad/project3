@@ -63,13 +63,6 @@ class App extends Component {
           {/* {api.isLoggedIn() && <Route path="/" exact component={Explore} /> } */}
           {/* <Route exact path="/"  component={Explore} />  */}
 
-<<<<<<< HEAD
-          <Route path="/posts/:id" component={EditPost}/>
-          <Route path="/posts" component={Posts} />
-          <Route path="/private" component={Private} />
-          <Route path="/add-post" component={AddPost} />
-          <Route path="/myProfile" component={Profile} />
-=======
           <ProtectedRoute user={this.state.loggedInUser} path="/" exact component={Explore} />
           <Route path="/signup" render={() => this.state.loggedInUser ? (<Redirect to="/explore"/>) : (<Signup getUser={this.getTheUser}/>)} />
           <Route path="/login" render={() => this.state.loggedInUser ? (<Redirect to="/explore"/>) : (<Login getUser={this.getTheUser}/>)} /> 
@@ -79,7 +72,6 @@ class App extends Component {
           <Route path="/private" render={() => ( <Private user={this.state.loggedInUser}/> )} />
           <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />
           <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />
->>>>>>> bc333e8ad4d0190344878741a9d2c35918bf0222
           <Route path="/verifyemail/:id" component={Verification} />
           
           <Route render={() => <h2>404</h2>} />

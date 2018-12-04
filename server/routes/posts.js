@@ -6,10 +6,13 @@ const parser = require('../configs/cloudinary.js');
 const cloudinary = require('cloudinary');
 
 router.get('/', (req, res, next) => {
-  Promise.all[Post.find({privacy: "Public"}).populate('_owner', 'username'), Post.find({privacy: "Anonymous"})]
+  Promise.all([Post.find({privacy: "Public"}).populate('_owner', 'username'), Post.find({privacy: "Anonymous"})])
    // Populate on the field 'username' and '_id' (default) ==> avoid displaying the hash password that could be a security issue
     .then(([postsPublic, postsAnonymous]) => {
-      res.json(postsPublic, postsAnonymous);
+      res.json({
+        public: postsPublic,
+        anonymous: postsAnonymous
+      });
     })
     .catch(err => next(err))
 });

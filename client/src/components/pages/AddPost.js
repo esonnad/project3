@@ -33,7 +33,7 @@ class AddPost extends Component {
       text: "",
       search: "",
       category: "Moment",
-      ptivacy: "Private",
+      privacy: "Private",
       searchOptions: [],
       searchCoordinates: {},
       // pictureUrl: "",

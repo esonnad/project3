@@ -6373,6 +6373,18 @@ body {
     .Posts .row .map {
       height: 100%; }
 
+.mapboxgl-popup-content {
+  width: 300px;
+  height: 200px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 9px 15px 34px -6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center; }
+
+.mapboxgl-popup-close-button {
+  width: 10%; }
+
 .Secret .result {
   font-size: 1.2em;
   color: #11A5A5; }

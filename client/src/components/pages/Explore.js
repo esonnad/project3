@@ -67,6 +67,7 @@ class Posts extends Component {
     api.getPosts()
       .then(posts => {
         console.log(posts)
+        posts = [...posts.public, ...posts.anonymous]
         this.setState({
           posts: posts.map(post => {
             const [lng, lat] = post.location.coordinates

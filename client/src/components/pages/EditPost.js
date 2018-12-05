@@ -20,8 +20,8 @@ export default class EditPost extends Component {
     super(props)
     this.state = {
       title: "",
-      // pictureUrl: "",
-      // pictureFile: "",
+      pictureUrl: "",
+      file: null,
       text: "",
       category: "",
       privacy: "",
@@ -41,19 +41,23 @@ export default class EditPost extends Component {
       .then(post=>{
         this.setState({
           title: post.title,
-          // pictureUrl: post.picture,
-          // pictureFile: "",
           text: post.text,
           category: post.category,
           privacy: post.privacy,
           lng: post.location.coordinates[0],
           lat: post.location.coordinates[1],
         })
+        if (post.picture) {
+          this.setState({
+            pictureUrl: post.picture,
+          })
+        }
         this.initMap();
       })
   }
   handleChange = (event) => {
     let name = event.target.name
+    console.log("input changed", name)
     this.setState({
       [name]: event.target.value
     }, () => {
@@ -62,6 +66,8 @@ export default class EditPost extends Component {
       }
     })
   }
+
+
   initMap() {
     
     // Init the map where "this.mapRef" is defined in the render
@@ -119,11 +125,7 @@ export default class EditPost extends Component {
   }
 
   handleSearchSelection = (event) => {
-    // let currentSearch = this.state.search 
-    // currentSearch = currentSearch.substring(0, currentSearch.length - 1)
-    /* currentSearch = '"' + '"' + currentSearch + '"' + '"' */
-    // console.log("THIS IS THE ONE WE`RE LOOKING AT!specific coordinates", this.state.searchCoordinates[currentSearch.toString()]);
-    //let newCoords = this.state.searchCoordinates[currentSearch.toString()]
+    
     let newCoords = this.state.searchCoordinates[event];
     if (newCoords) {
       this.setState({
@@ -138,12 +140,14 @@ export default class EditPost extends Component {
       this.map.setCenter([this.state.lng, this.state.lat])
     } 
   };
-  // handleFileChange=(e)=> {
-  //   e.preventDefault()
-  //    this.setState({
-  //      imageFile: e.target.files[0]
-  //    })
-  //  }
+
+  handleFileChange=(e)=> {
+    e.preventDefault()
+     this.setState({
+       file: e.target.files[0],
+       pictureUrl: ""
+     })
+   }
 
   handleSubmit(e) {
     e.preventDefault()
@@ -154,12 +158,11 @@ export default class EditPost extends Component {
       lat: this.state.lat,
       category: this.state.category,
       privacy: this.state.privacy,
-      // picture: this.state.pictureFile,
+      picture: this.state.file,
     }
-    this.setState({
-      // pictureURL: "",
-      message: "Image loading..."
-    })
+    // this.setState({
+    //   pictureUrl: "",
+    // })
     let id = this.props.match.params.id
     api.updateOnePost(id, data)
       .then(updated => {
@@ -211,20 +214,21 @@ export default class EditPost extends Component {
               <FormGroup row>
               <Label for="privacy" xl={3}>Privacy Settings</Label>
                 <Col xl={9}>
-                  <Input type="select" value={this.state.privacy} name="privacy" cols="30" rows="5" onChange={this.handleInputChange}>
+                  <Input type="select" value={this.state.privacy} name="privacy" cols="30" rows="5" onChange={this.handleChange}>
                   <option value="Private">Private</option>
                   <option value="Anonymous">Anonymous</option>
                   <option value="Public">Public</option>
                   </Input>
                 </Col>
               </FormGroup>
-              {/* <FormGroup row>
-                <Label for="pictureURL" xl={3}>Add/Change picture</Label>
+
+              <FormGroup row>
+                <Label for="pictureURL" xl={3}>Update Picture</Label>
                 {this.state.pictureUrl!=="" && <img src={this.state.pictureUrl} style={{height: 200}} />}
                 <Col xl={9}>
                   <Input type="file" name="pictureUrl" cols="30" rows="5" onChange={this.handleFileChange} />
                 </Col>
-              </FormGroup> */}
+              </FormGroup>
 
               
               <FormGroup row>

@@ -115,18 +115,19 @@ router.get('/:postid', (req,res,next)=>{
 
 router.post('/:postid', parser.single('picture'), (req,res,next)=>{
   let id = req.params.postid
-  cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
-  let { title, text, lng, lat, category } = req.body
-  if (!title || !text || !lng || !lat || !category || !picture) {
+  //cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
+  let { title, text, lng, lat, category, privacy, public_id } = req.body
+  let file = req.file;
+  if (!title || !text || !lng || !lat || !category ) {
     next(new Error('You have to send: title, description, lng, lat, category, picture'))
   }
   Post.findByIdAndUpdate(id, {
     title: title,
-    picture: picture,
     text : text,
     category: category,
-    picture: req.file.url, 
-    public_id: req.file.public_id,
+    privacy: privacy,
+    picture: file.url, 
+    public_id: file.public_id,
     location: {
       type: 'Point',
       coordinates: [lng, lat]
@@ -135,10 +136,35 @@ router.post('/:postid', parser.single('picture'), (req,res,next)=>{
     .then(update => {
       res.json({
         success: true,
-        imageURL: req.file.url
+        imageURL: file.url
       })
     })
     .catch(err => next(err))
 })
+
+router.post('/nopicture/:postid', isLoggedIn, (req, res, next) => {
+  let id = req.params.postid
+  let { title, text, lng, lat, category, privacy} = req.body
+  if (!title || !text || !lng || !lat || !category ) {
+    next(new Error('You have to send: title, description, lng, lat, category, picture'))
+  }
+  Post.findByIdAndUpdate(id, {
+    title: title,
+    text : text,
+    category: category,
+    privacy: privacy,
+    location: {
+      type: 'Point',
+      coordinates: [lng, lat]
+    },
+  })
+    .then(update => {
+      res.json({
+        success: true,
+      })
+    })
+    .catch(err => next(err))
+  
+    })
 
 module.exports = router;

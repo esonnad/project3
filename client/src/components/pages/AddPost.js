@@ -15,7 +15,10 @@ import 'react-autocomplete-input/dist/bundle.css';
 import TextInput from 'react-autocomplete-input';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const geocodingClient = mbxGeocoding({ accessToken: 'pk.eyJ1IjoiZXNvbm5hZCIsImEiOiJjam96eXM0ZGYwMTAwM3ZtdHBiYTZnMnA1In0.bd13D4f1GjPT6iwSU45lTA' });
+//let myVar = process.env.REACT_APP_MAPBOX_TOKEN
+//console.log("this is my token",myVar)
+//console.log("process.env THIS ONEEE",process.env)
+const geocodingClient = mbxGeocoding({ accessToken: 'pk.eyJ1IjoiZXNvbm5hZCIsImEiOiJjam96eXM0ZGYwMTAwM3ZtdHBiYTZnMnA1In0.bd13D4f1GjPT6iwSU45lTA'});
 
 // TODO:
 // Create a function for random picture 
@@ -67,17 +70,6 @@ class AddPost extends Component {
       pictureUrl: "",
       message: "Image loading..."
     })
-   
-    
-
-    // api.uploadPostPicture(this.state.file)
-    // .then(data => {
-    //   this.setState({
-    //     pictureUrl: data.imageURL,
-    //     public_id: data.public_id,
-    //     message: null
-    //   })
-    // })
 
   }
 
@@ -108,11 +100,7 @@ class AddPost extends Component {
   }
 
   handleSearchSelection = (event) => {
-    // let currentSearch = this.state.search 
-    // currentSearch = currentSearch.substring(0, currentSearch.length - 1)
-    /* currentSearch = '"' + '"' + currentSearch + '"' + '"' */
-    // console.log("THIS IS THE ONE WE`RE LOOKING AT!specific coordinates", this.state.searchCoordinates[currentSearch.toString()]);
-    //let newCoords = this.state.searchCoordinates[currentSearch.toString()]
+   
     let newCoords = this.state.searchCoordinates[event];
     if (newCoords) {
       this.setState({

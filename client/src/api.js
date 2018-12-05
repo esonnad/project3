@@ -61,7 +61,6 @@ export default {
 
   addPost(data) {
     if (data.picture) {
-      console.log("there is a picture")
       const formData = new FormData()
       for (const key in data) {
       formData.append(key, data[key])
@@ -73,27 +72,14 @@ export default {
       .catch(errHandler)
     }
     else {
-      console.log("there is no picture")
       return service
       .post('/posts/nopicture', data)
       .then(res => res.data)
       .catch(errHandler)
     }
     
+    
   },
-
-  // uploadPostPicture(file, public_id){
-  //   const formData = new FormData()
-  //   formData.append("picture", file)
-  //   return service
-  //     .post('/posts/picture', formData, public_id,{
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     })
-  //     .then(res => res.data)
-  //     .catch(errHandler)
-  // },
 
   getUser () {
     return service
@@ -156,16 +142,30 @@ export default {
   },
 
   updateOnePost(id, data){
-    const formData = new FormData()
-    formData.append("picture", data.picture)
-    return service
-      .post(`/posts/${id}`, data, formData, {
+    if (data.picture) {
+
+      const formData = new FormData()
+      for (const key in data) {
+      formData.append(key, data[key])
+      }
+
+      return service
+      .post(`/posts/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       .then(res => res.data)
       .catch(errHandler)   
+    }
+
+    else {
+      console.log("no picture")
+      return service
+      .post(`/posts/nopicture/${id}`, data)
+      .then(res => res.data)
+      .catch(errHandler)
+    }
   },
 
 

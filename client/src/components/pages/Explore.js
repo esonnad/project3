@@ -9,6 +9,8 @@ import {
 } from 'reactstrap'
 import PostDetail from './PostDetail'
 import api from '../../api';
+import * as turf from '@turf/turf';
+
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 
@@ -59,20 +61,41 @@ class Posts extends Component {
     api.getPosts()
       .then(posts => {
         posts = [...posts.public, ...posts.anonymous]
-        this.setState({
-          posts: posts.map(post => {
-            const [lng, lat] = post.location.coordinates
-            return {
-              ...post,
-              marker: new mapboxgl.Marker({ color: 'red' })
-                .setLngLat([lng, lat])
-                .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
-                  .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px"><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category} by ${post._owner.username}</h6><div>`))
-                .addTo(this.map)
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(position => {
+            let userLocation = [position.coords.longitude, position.coords.latitude];
+            for (let i = 0; i < posts.length; i++) {
+              let currentPost = posts[i];
+              let from = turf.point(userLocation);
+              let to = turf.point(currentPost.location.coordinates)
+              let distance = turf.distance(from, to)
+              currentPost.distance = distance;
             }
+            posts = posts.sort((a,b) => a.distance - b.distance);
+            console.log("updated posts", posts)
 
+            this.setState({
+              posts: posts.map(post => {
+                const [lng, lat] = post.location.coordinates
+                return {
+                  ...post,
+                  marker: new mapboxgl.Marker({ color: '#03134C' })
+                    .setLngLat([lng, lat])
+                    .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
+                      .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px"><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category} by ${post._owner.username}</h6><div>`))
+                    .addTo(this.map)
+                }    
+              })
+            })
+
+
+            
           })
-        })
+          
+        }
+        console.log("posts outside of if statement", posts)
+
+        
       })
       .catch(err => console.log(err))
     this.initMap()
@@ -83,6 +106,7 @@ class Posts extends Component {
         this.map.setCenter(center)
       })
     }
+    console.log("STATE OF EXPLORE COMPONENT", this.state)
   }
 }
 

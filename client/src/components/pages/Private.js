@@ -39,28 +39,20 @@ class Private extends Component {
   }
   render() {
     return (
-      <div className="Posts">
-        <Row>
-          <Col sm={3} className="col-text">
-            <ListGroup>
-              {this.state.posts.map((h, i) => (
-                <ListGroupItem key={h._id} action tag={NavLink} to={"/posts/" + h._id} onClick={() => this.handlePostSelection(i)}>
-                  {h.title} 
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </Col>
-          <Col sm={4} className="col-text">
-            <Switch>
-              <Route path="/posts/:id" render={(props) => <PostDetail {...props} posts={this.state.posts} />} />
-              {/* <Route render={() => <h2>Select a Post</h2>} /> */}
-            </Switch>
-          </Col>
-          <Col sm={5}>
-            <div ref={this.mapRef} className="map"></div>
-          </Col>
-        </Row>
+      <React.Fragment>
+
+      <h1 class="page-title">My Spots</h1>
+      <div class="card-container">
+        {this.state.posts.map(post=>
+          <div class="card">
+          <p class="card-title">{post.title}</p>
+          </div>
+        )}
       </div>
+
+      <div  ref={this.mapRef} ></div>
+      </React.Fragment>
+   
     );
   }
   componentDidMount() {
@@ -74,7 +66,8 @@ class Private extends Component {
               marker: new mapboxgl.Marker({ color: 'blue' })
               
                 .setLngLat([lng, lat])
-                .on('click', () => { console.log("clicked") })
+                .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
+                  .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px"><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category}</h6><h6> posted ${post.privacy}</h6><a href="http://localhost:3000/posts/${post._id}">Edit</a><div>`))
                 .addTo(this.map)
             }
           })

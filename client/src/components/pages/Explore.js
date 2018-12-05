@@ -67,7 +67,7 @@ class Posts extends Component {
               marker: new mapboxgl.Marker({ color: 'red' })
                 .setLngLat([lng, lat])
                 .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
-                  .setHTML(`<h3>${post.title}</h3><img src=${post.picture} width="50px" height="50px"><p>${post.text}</p><h5>${post.category}</h5><h6>${post._owner.username}</h6>`))
+                  .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px"><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category} by ${post._owner.username}</h6><div>`))
                 .addTo(this.map)
             }
 

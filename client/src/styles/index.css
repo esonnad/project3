@@ -6374,7 +6374,7 @@ body {
 
 .mapboxgl-popup-content {
   width: 300px;
-  height: 200px;
+  padding: 30px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 9px 15px 34px -6px rgba(0, 0, 0, 0.5);
@@ -6382,7 +6382,9 @@ body {
   justify-content: center; }
 
 .mapboxgl-popup-close-button {
-  width: 10%; }
+  width: 10%;
+  background-color: #FFF04C;
+  border-radius: 4px; }
 
 .Secret .result {
   font-size: 1.2em;
@@ -6459,3 +6461,15 @@ body, html {
   font-family: 'Montserrat', sans-serif;
   background-color: #11A5A5;
   color: white; }
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #535151; }
+  .post-card h4 {
+    font-weight: bold; }
+  .post-card p {
+    font-size: 15px; }
+  .post-card h6 {
+    font-weight: 200; }

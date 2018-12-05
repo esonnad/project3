@@ -22,7 +22,6 @@ class Login extends Component {
     e.preventDefault()
     api.login(this.state.username, this.state.password)
       .then(result => {
-        console.log('SUCCESS! user:', result)
         this.props.getUser(result)
         //this.props.history.push("/explore") // Redirect to the explore page
       })

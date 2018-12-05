@@ -17,13 +17,17 @@ router.get('/', (req, res, next) => {
     .catch(err => next(err))
 });
 
-router.post('/', isLoggedIn, (req, res, next) => {
-  let { title, text, lng, lat, category, privacy, picture, public_id } = req.body
+router.post('/', isLoggedIn, parser.single('picture'), (req, res, next) => {
+  console.log("POST FUNCTION REQUEST: REQ.BODY", req.body)
+  console.log("POST FUNCTION REQUEST: REQ.file", req.file)
+
+  let { title, text, lng, lat, category, privacy, public_id } = req.body
+  let file = req.file
   let _owner = req.user._id
   if (!title || !text || !lng || !lat || !category ) {
     next(new Error('You have to send: title, description, lng, lat, category, picture'))
   }
-  if(!picture || picture == "") {
+  if(file === null) {
     Post.create({
       title: title,
       text : text,
@@ -45,11 +49,12 @@ router.post('/', isLoggedIn, (req, res, next) => {
   } else {
   Post.create({
     title: title,
-    picture: picture,
+    picture: file.url,
     public_id: public_id,
     text : text,
     category: category,
     privacy: privacy,
+    public_id: file.public_id,
     location: {
       type: 'Point',
       coordinates: [lng, lat]
@@ -66,7 +71,8 @@ router.post('/', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/picture', parser.single('picture'), (req,res,next)=>{
-  if(req.body.public_id || req.body.public_id !== ""){cloudinary.v2.uploader.destroy(req.body.public_id, function(result) { console.log(result) });}
+  console.log("Post Picture Request:", req.file)
+  if(req.file.public_id || req.file.public_id !== ""){cloudinary.v2.uploader.destroy(req.file.public_id, function(result) { console.log("WHAT IS THIS? WHAT DOES THIS FUNCTION DO? WHO AM I?? ") });}
   res.json({
     imageURL: req.file.url,
     public_id: req.file.public_id

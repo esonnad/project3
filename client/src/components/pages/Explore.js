@@ -58,7 +58,6 @@ class Posts extends Component {
   componentDidMount() {
     api.getPosts()
       .then(posts => {
-        console.log(posts)
         posts = [...posts.public, ...posts.anonymous]
         this.setState({
           posts: posts.map(post => {

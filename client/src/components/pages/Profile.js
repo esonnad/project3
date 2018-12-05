@@ -54,7 +54,6 @@ export default class Profile extends Component {
     }
     api.updateUsernameEmail(data)
       .then(result => {
-        console.log('SUCCESS!')
         this.setState({
           message: `Your information was updated`
         })
@@ -76,7 +75,6 @@ export default class Profile extends Component {
     }
     api.changePassword(data)
       .then(result => {
-        console.log('SUCCESS!')
         this.setState({
           oldPassword : "",
           newPassword : "",

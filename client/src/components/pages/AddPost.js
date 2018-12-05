@@ -49,7 +49,6 @@ class AddPost extends Component {
   }
 
   handleInputChange = (event) => {
-    console.log("event", event)
     let name = event.target.name
     this.setState({
       [name]: event.target.value
@@ -62,19 +61,23 @@ class AddPost extends Component {
 
   handleFileChange=(e)=>{
     e.preventDefault();
+    const file = e.target.files[0];
     this.setState({
-      file: e.target.files[0],
+      file: file,
       pictureUrl: "",
       message: "Image loading..."
     })
-    api.uploadPostPicture(this.state.file, this.state.public_id)
-    .then(data => {
-      this.setState({
-        pictureUrl: data.imageURL,
-        public_id: data.public_id,
-        message: null
-      })
-    })
+   
+    
+
+    // api.uploadPostPicture(this.state.file)
+    // .then(data => {
+    //   this.setState({
+    //     pictureUrl: data.imageURL,
+    //     public_id: data.public_id,
+    //     message: null
+    //   })
+    // })
 
   }
 
@@ -112,14 +115,12 @@ class AddPost extends Component {
     //let newCoords = this.state.searchCoordinates[currentSearch.toString()]
     let newCoords = this.state.searchCoordinates[event];
     if (newCoords) {
-      console.log("setting state. before:", this.state, "coords", newCoords)
       this.setState({
         search: event,
         searchOptions: [],
         lng: newCoords[0],
         lat: newCoords[1]
       })
-      console.log("after", this.state)
       this.marker.setLngLat({
         lng: newCoords[0],
         lat: newCoords[1]
@@ -137,9 +138,10 @@ class AddPost extends Component {
       lat: this.state.lat,
       category: this.state.category,
       privacy: this.state.privacy,
-      picture: this.state.pictureUrl,
-      public_id: this.state.public_id
+      public_id: this.state.public_id,
+      picture: this.state.file,
     }
+
     api.addPost(data)
       .then(result => {
         this.setState({
@@ -245,7 +247,7 @@ class AddPost extends Component {
               </FormGroup>
               {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
               <FormGroup row>
-                <Label for="pictureURL" xl={3}>Add a picture</Label>
+                <Label for="pictureUrl" xl={3}>Add a picture</Label>
                 <Col xl={9}>
                   <Input type="file" name="pictureUrl" cols="30" rows="5" onChange={this.handleFileChange} />
                 </Col>

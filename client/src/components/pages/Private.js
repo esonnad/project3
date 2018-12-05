@@ -64,10 +64,8 @@ class Private extends Component {
     );
   }
   componentDidMount() {
-    console.log("USER", this.props.user)
     api.getMyPosts()
       .then(posts => {
-        console.log(posts)
         this.setState({
           posts: posts.map(post => {
             const [lng, lat] = post.location.coordinates

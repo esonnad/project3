@@ -25,7 +25,6 @@ export default {
     return service
       .post('/signup', userInfo)
       .then(res => {
-        console.log("data", res.data)
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
         localStorage.setItem('user', JSON.stringify(res.data))
         return res.data
@@ -61,31 +60,37 @@ export default {
   },
 
   addPost(data) {
+    const formData = new FormData()
+    // formData.append("title", data.title)
+    for (const key in data) {
+      formData.append(key, data[key])
+    }
+    console.log("API post call. data:", data);
+    console.log("API post call. file:", data.file);
     return service
-      .post('/posts', data)
+      .post('/posts', formData)
       .then(res => res.data)
       .catch(errHandler)
   },
 
-  uploadPostPicture(file, public_id){
-    const formData = new FormData()
-    formData.append("picture", file)
-    return service
-      .post('/posts/picture', formData, public_id,{
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(res => res.data)
-      .catch(errHandler)
-  },
+  // uploadPostPicture(file, public_id){
+  //   const formData = new FormData()
+  //   formData.append("picture", file)
+  //   return service
+  //     .post('/posts/picture', formData, public_id,{
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     })
+  //     .then(res => res.data)
+  //     .catch(errHandler)
+  // },
 
   getUser () {
     return service
       .get('/user')
       .then(res => {
         res.data
-        console.log("api data", res.data)
         return res.data
       })
   
@@ -116,6 +121,7 @@ export default {
   addPicture(file) {
     const formData = new FormData()
     formData.append("picture", file)
+    console.log("working form data", formData)
     return service
       .post('/user/picture', formData, {
         headers: {

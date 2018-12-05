@@ -60,17 +60,26 @@ export default {
   },
 
   addPost(data) {
-    const formData = new FormData()
-    // formData.append("title", data.title)
-    for (const key in data) {
+    if (data.file) {
+      console.log("there is a picture")
+      const formData = new FormData()
+      for (const key in data) {
       formData.append(key, data[key])
-    }
-    console.log("API post call. data:", data);
-    console.log("API post call. file:", data.file);
-    return service
+      }
+  
+      return service
       .post('/posts', formData)
       .then(res => res.data)
       .catch(errHandler)
+    }
+    else {
+      console.log("there is no picture")
+      return service
+      .post('/posts/nopicture', data)
+      .then(res => res.data)
+      .catch(errHandler)
+    }
+    
   },
 
   // uploadPostPicture(file, public_id){

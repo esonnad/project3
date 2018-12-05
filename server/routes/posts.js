@@ -27,26 +27,6 @@ router.post('/', isLoggedIn, parser.single('picture'), (req, res, next) => {
   if (!title || !text || !lng || !lat || !category ) {
     next(new Error('You have to send: title, description, lng, lat, category, picture'))
   }
-  if(file === null) {
-    Post.create({
-      title: title,
-      text : text,
-      category: category,
-      privacy: privacy,
-      location: {
-        type: 'Point',
-        coordinates: [lng, lat]
-      },
-      _owner
-    })
-      .then(post => {
-        res.json({
-          success: true,
-          post
-        });
-      })
-      .catch(err => next(err))
-  } else {
   Post.create({
     title: title,
     picture: file.url,
@@ -68,7 +48,39 @@ router.post('/', isLoggedIn, parser.single('picture'), (req, res, next) => {
       });
     })
     .catch(err => next(err))}
-});
+//}
+);
+
+router.post('/nopicture', isLoggedIn, (req, res, next) => {
+  console.log("POST FUNCTION REQUEST: REQ.BODY", req.body)
+  console.log("POST FUNCTION REQUEST: REQ.file", req.file)
+
+  let { title, text, lng, lat, category, privacy} = req.body
+  let _owner = req.user._id
+  if (!title || !text || !lng || !lat || !category ) {
+    next(new Error('You have to send: title, description, lng, lat, category, picture'))
+  }
+    Post.create({
+      title: title,
+      text : text,
+      category: category,
+      privacy: privacy,
+      picture: "",
+      location: {
+        type: 'Point',
+        coordinates: [lng, lat]
+      },
+      _owner
+    })
+      .then(post => {
+        res.json({
+          success: true,
+          post
+        });
+      })
+      .catch(err => next(err))
+  
+    })
 
 router.post('/picture', parser.single('picture'), (req,res,next)=>{
   console.log("Post Picture Request:", req.file)

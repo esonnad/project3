@@ -60,7 +60,7 @@ export default {
   },
 
   addPost(data) {
-    if (data.file) {
+    if (data.picture) {
       console.log("there is a picture")
       const formData = new FormData()
       for (const key in data) {

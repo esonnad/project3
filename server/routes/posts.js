@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', isLoggedIn, parser.single('picture'), (req, res, next) => {
-  console.log("POST FUNCTION REQUEST: REQ.BODY", req.body)
+  console.log("POST FUNCTION- WITH PICTURE", req.body)
   console.log("POST FUNCTION REQUEST: REQ.file", req.file)
 
   let { title, text, lng, lat, category, privacy, public_id } = req.body
@@ -53,8 +53,7 @@ router.post('/', isLoggedIn, parser.single('picture'), (req, res, next) => {
 );
 
 router.post('/nopicture', isLoggedIn, (req, res, next) => {
-  console.log("POST FUNCTION REQUEST: REQ.BODY", req.body)
-  console.log("POST FUNCTION REQUEST: REQ.file", req.file)
+  console.log("POST FUNCTION NO PICTURE: REQ.BODY", req.body)
 
   let { title, text, lng, lat, category, privacy} = req.body
   let _owner = req.user._id

@@ -33,7 +33,7 @@ router.post('/', (req,res,next)=>{
           subject: 'Your New Email',
           text: `Your changed your email!\n\n` +
             'On your pin point account\n\n' +
-            `Please click here: http://localhost:3000/verifyemail/${updatedUser._id}\n` + 
+            `Please click here: https://ironpinpoint.herokuapp.com/verifyemail/${updatedUser._id}\n` + 
             `to verify your account. Otherwise you won\'t be able to reset it, in case you forgot.\n`
         };
         transporter.sendMail(mailOptions)

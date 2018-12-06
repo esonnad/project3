@@ -38,7 +38,7 @@ router.post("/signup", (req, res, next) => {
         text: 'Welcome to Pin Point!\n\n' +
           'Thank you for signing up on Pin Point\n\n' +
           'From now on you can share all your special moments with everyone or save them for yourself!\n\n' +
-          `Please click here: http://localhost:3000/verifyemail/${newUser._id}\n` + 
+          `Please click here: https://ironpinpoint.herokuapp.com/verifyemail/${newUser._id}\n` + 
           'to verify your account. Otherwise you won\'t be able to reset it, in case you forgot.\n'
       };
       transporter.sendMail(mailOptions)

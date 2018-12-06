@@ -67,7 +67,7 @@ class Private extends Component {
               
                 .setLngLat([lng, lat])
                 .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
-                  .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px"><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category}</h6><h6> posted ${post.privacy}</h6><a href="http://localhost:3000/posts/${post._id}">Edit</a><div>`))
+                  .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px"><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category}</h6><h6> posted ${post.privacy}</h6><a href="https://ironpinpoint.herokuapp.com/posts/${post._id}">Edit</a><div>`))
                 .addTo(this.map)
             }
           })

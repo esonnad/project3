@@ -18,9 +18,25 @@ export default class MainNavbar extends Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
+      user: null,
       isOpen: false
     };
   }
+
+  componentDidMount() {
+    this.getUser();
+  }
+  getUser =() =>{
+    api.getUser()
+    .then(user => {
+      this.setState({
+        user: user
+      })
+      console.log(this.state.user._id)
+    })
+  }
+
+
   handleLogoutClick(e) {
     e.preventDefault();
     api.logout()
@@ -56,7 +72,6 @@ export default class MainNavbar extends Component {
             {!api.isLoggedIn() && <NavItem>
               <NavLink tag={NLink} to="/about">What?</NavLink>
             </NavItem>}
-              
             {api.isLoggedIn() && <NavItem>
               <NavLink tag={NLink} to="/explore">Explore</NavLink>
             </NavItem>}
@@ -66,8 +81,8 @@ export default class MainNavbar extends Component {
             {api.isLoggedIn() && <NavItem>
               <NavLink tag={NLink} to="/add-post">Add your post</NavLink>
             </NavItem>}
-            {api.isLoggedIn() && <NavItem>
-              <NavLink tag={NLink} to="/myProfile">My Profile</NavLink>
+            {(api.isLoggedIn() && this.state.user!= null) && <NavItem>
+              <NavLink tag={NLink} to={`/viewprofile/${this.state.user._id}`}>Profile</NavLink>
             </NavItem>}
             {api.isLoggedIn() && <NavItem>
               <NavLink tag={Link} to="/"  onClick={(e) => this.handleLogoutClick(e)}>Logout</NavLink>

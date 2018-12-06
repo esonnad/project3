@@ -80,6 +80,14 @@ router.get('/verify/:id', (req,res,next)=>{
   })
 })
 
+router.get('/:id', (req,res,next)=>{
+  let id = req.params.id
+  User.findById(id)
+  .then(user => {
+    res.json(user);
+  })
+})
+
 router.post('/picture', parser.single('picture'), (req,res,next)=>{
   console.log("User post picture route. Request File:", req.file)
   let id = req.user._id;

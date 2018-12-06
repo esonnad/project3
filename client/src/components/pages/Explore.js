@@ -39,6 +39,15 @@ class Posts extends Component {
   handlePostSelection(iSelected) {
     this.map.setCenter(this.state.posts[iSelected].location.coordinates)
   }
+
+  handleCardClick(post)  {
+    this.map.setCenter(post.location.coordinates)
+    post.marker.togglePopup();
+    setTimeout(() => {
+      post.marker.togglePopup();
+    }, 7000)
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -46,7 +55,7 @@ class Posts extends Component {
       <h1 class="page-title">Explore</h1>
       <div class="card-container">
         {this.state.posts.map(post=>
-          <div class="card">
+          <div class="card" key={post.title} onClick={()=>this.handleCardClick(post)}>
           <p class="card-title">{post.title}</p>
           </div>
         )}
@@ -86,18 +95,12 @@ class Posts extends Component {
                     .addTo(this.map)
                 }    
               })
-            })
-
-
-            
-          })
-          
-        }
-        console.log("posts outside of if statement", posts)
-
-        
+            })  
+          })      
+        }     
       })
       .catch(err => console.log(err))
+
     this.initMap()
 
     if (navigator.geolocation) {
@@ -106,7 +109,6 @@ class Posts extends Component {
         this.map.setCenter(center)
       })
     }
-    console.log("STATE OF EXPLORE COMPONENT", this.state)
   }
 }
 

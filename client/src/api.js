@@ -92,6 +92,13 @@ export default {
       .catch(errHandler)
   },
 
+  getUserByID(id) {
+    return service
+    .get(`/user/${id}`)
+    .then(res => res.data)
+    .catch(errHandler)
+  },
+
   verifyEmail(id){
     return service
       .get(`/user/verify/${id}`)

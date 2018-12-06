@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Private from './pages/Private';
 import Profile from './pages/Profile';
+import ViewProfile from './pages/ViewProfile';
 import Verification from './pages/Verification';
 import ProtectedRoute from './pages/Protected';
 
@@ -68,7 +69,7 @@ class App extends Component {
           <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />
           <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />
           <Route path="/verifyemail/:id" component={Verification} />
-          
+          <Route path="/viewprofile/:id" component={ViewProfile} />
           <Route render={() => <h2>404</h2>} />
           </Switch>
         <MainFooter />

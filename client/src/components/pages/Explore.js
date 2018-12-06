@@ -18,7 +18,8 @@ class Posts extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: []
+      posts: [],
+      randomPost: []
     }
     this.mapRef = React.createRef()
     this.map = null
@@ -48,15 +49,31 @@ class Posts extends Component {
     }, 7000)
   }
 
+  randomPost(){
+    var random = Math.floor(Math.random()*this.state.posts.length)
+    var randomPost = this.state.posts[random]
+    console.log(this.state.posts)
+    this.setState({
+      randomPost : [randomPost]
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
 
       <h1 className="page-title">Explore</h1>
-      
+      <div className="button-container"><button onClick={()=>this.randomPost()}>Give me a random post!</button></div>
+      <div className="card-container">
+        {this.state.randomPost.map(post=>
+          <div class="card" key={post.title} onClick={()=>this.handleCardClick(post)}>
+          <p class="card-title">{post.title}</p>
+          </div>
+        )}
+      </div>
 
       <div  ref={this.mapRef} ></div>
-      <div class="card-container">
+      <div className="card-container">
         {this.state.posts.map(post=>
           <div class="card" key={post.title} onClick={()=>this.handleCardClick(post)}>
           <p class="card-title">{post.title}</p>
@@ -93,7 +110,7 @@ class Posts extends Component {
                   marker: new mapboxgl.Marker({ color: '#03134C' })
                     .setLngLat([lng, lat])
                     .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
-                      .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px"><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category} by <a className="cardlink" href="http://localhost:3000/viewprofile/${post._owner._id}">${post._owner.username}</a></h6><div>`))
+                      .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px" alt=""><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category} by <a className="cardlink" href="http://localhost:3000/viewprofile/${post._owner._id}">${post._owner.username}</a></h6><div>`))
                     .addTo(this.map)
                 }    
               })

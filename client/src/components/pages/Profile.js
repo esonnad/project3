@@ -114,53 +114,55 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div className="profilePage">
-        <h1 className="page-title">Edit my Profile</h1>
-        <h2>Here you can edit the details of your profile!</h2>
-        <div className="bottomBox">
-        
+      <div className="Home" style={{backgroundImage: `url(${"../map.jpg"})`}}>
+      <h1 className="page-title">Edit my Profile</h1>
+      <div className="feliProfile">
 
-        <div className="leftBox card">
-        <div className="profileInfoBox">
-        <form>
+          <div className="card text-center w-50">
+          <div className="card-body">
+
+          <h5 className="card-title">Edit Username and Email</h5>
+          <p className="card-text"><form>
           <Label for="username">Username:</Label>
           <Input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
           <Label for="email">Email:</Label>
           <Input type="text" value={this.state.email} name="email" onChange={this.handleChange} />
-          <button onClick={(e) => this.handleUserEmailChange(e)}>Update</button>
-        </form>
-        </div><hr/>
-
-        
-
-        <div className="profilePasswBox">
-        <form>
+          <button className="btn btn-primary btn-shadow" onClick={(e) => this.handleUserEmailChange(e)}>Update</button>
+          </form></p>
+          <h5 className="card-title">Edit your Password</h5>
+          <p className="card-text"><form>
           <Label for="oldPassword">Old Password:</Label>
           <Input type="password" value={this.state.oldPassword} name="oldPassword" onChange={this.handleChange} />
           <Label for="newPassword">New Password:</Label>
           <Input type="password" value={this.state.newPassword} name="newPassword" onChange={this.handleChange} />
           <Label for="confirmNewPassword">Confirm New Password:</Label>
           <Input type="password" value={this.state.confirmNewPassword} name="confirmNewPassword" onChange={this.handleChange} />
-          <button onClick={(e) => this.handlePasswordChange(e)}>Change</button>
-        </form>
-        </div>
-        </div>
-        <div className="middleBox">
-        {this.state.message && <div className="info">
-          {this.state.message}
-        </div>}
-        </div>
+          <button className="btn btn-primary btn-shadow" onClick={(e) => this.handlePasswordChange(e)}>Change</button>
+        </form></p>
 
-        <div className="profilePicBox rightBox card">
-        {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
-        <form onSubmit={(e)=>this.handleFileSubmit(e)}>
+          </div>
+          </div>
+
+          
+          {this.state.message && <div className="info">
+            {this.state.message}
+          </div>}
+     
+
+          <div className="card text-center w-50">
+          <div className="card-body">
+
+          <h5 className="card-title">Edit your profile Picture</h5>
+          {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
+
+          <p className="card-text"><form onSubmit={(e)=>this.handleFileSubmit(e)}>
           <input type="file" onChange={this.handleFileChange} /> <br/>
-          <button type="submit">Save new profile picture</button>
-        </form>
-        </div>
+          <button className="btn btn-primary btn-shadow" type="submit">Save new profile picture</button>
+          </form></p>
 
-        </div>
-
+          </div>
+          </div>
+      </div>
       </div>
     )
   }

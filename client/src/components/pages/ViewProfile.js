@@ -35,23 +35,21 @@ export default class ViewProfile extends Component {
 
   render() {
     return (
-      <div> 
+      <div className="Home" style={{backgroundImage: `url("../map.jpg")`}}>
       <h1 className="page-title">Profile</h1>
-      { this.state.user && 
-        <div className="conditional-on-user">
-          <div className="card"><br></br>
-            {this.state.user.imageURL && <img src={this.state.user.imageURL} height="300px" />}
-            <br></br><p className="card-title user-name">{this.state.user.username}</p>
-            {/* <p>See Public Posts by {this.state.user.username}</p> */}
-            <p>{this.state.isMe}</p>
-            { this.state.isMe && <Link to='/profile' className="user-link">Edit Profile</Link>}
-            <br></br>
+      <div className="feliProfile">
+          <div className="card text-center w-50">
+          { this.state.user && 
+          <div className="card-body">
+          {this.state.user.imageURL && <img src={this.state.user.imageURL} height="300px" />}
+          <br/><br/>
+          <h5 className="card-title">{this.state.user.username}</h5>
+          <p className="card-text">{this.state.isMe}</p><br></br>
+          { this.state.isMe && <Link to='/profile' className="user-link">Edit Profile</Link>}
+          </div>}
           </div>
-        </div>
-
-      }
       </div>
-      
+      </div>
     )
   }
   

@@ -81,6 +81,9 @@ body {
     color:rgb(83, 81, 81)!important;
   }
 }
+.MainFooter {
+  border-top: 2px solid rgb(206, 204, 204);
+}
 
 // --------------------
 // Style for Post component
@@ -166,7 +169,6 @@ body, html {
 }
 
 .Home { 
-  /* The image used */
 
   /* Full height */
   height: calc(100vh - 2*#{$navbarHeight});
@@ -175,6 +177,15 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.feliProfile {
+  height: calc(100vh - 120px - #{$navbarHeight});
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
 }
 
 /* .card-body{
@@ -246,6 +257,11 @@ body, html {
       color: rgb(83, 81, 81);
     }
   }
+  a{
+    // text-decoration: none;
+    font-weight: 200;
+    color: rgb(83, 81, 81);
+  }
 }
 .user-name {
   padding: 20px;
@@ -272,4 +288,7 @@ body, html {
     padding: 5px 10px 5px 10px;
     margin: 5px;
   }
+}
+.btn-shadow {
+  box-shadow: 0px 0px 12px 2px rgba(0,0,0,0.3);
 }

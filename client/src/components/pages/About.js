@@ -26,7 +26,7 @@ export default class About extends Component {
           <p className="card-text">First of all, we don't sell washing machines!</p><br></br>
           <p className="card-text">PinPoint is a website, where you can create Moments, Questions, Tips and Warnings that you had in specific places. If you want to, you can post them private, for your own memory, or you can even post it public. On the Explore page, explore all posts that were ever created, no matter where in the world.</p><br></br>
           <p className="card-text">So let`s get started:</p>
-          <a href="/signup" className="btn btn-primary">Sign up</a><br></br><br></br>
+          <a href="/signup" className="btn btn-primary btn-shadow">Sign up</a><br></br><br></br>
           <p className="card-text">Created by Emina and Feli</p>
           </div>
           

@@ -22,7 +22,7 @@ export default class MainFooter extends Component {
   }
   render() {
     return (
-      <Navbar color="primary" dark expand="md" className="MainNavbar">
+      <Navbar color="primary" dark expand="md" className="MainNavbar MainFooter">
           <Nav className="ml-auto" navbar>
             {<NavItem>
               <NavLink tag={NLink} to="/about">What?</NavLink>

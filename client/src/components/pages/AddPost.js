@@ -24,7 +24,7 @@ class AddPost extends Component {
     this.state = {
       title: "",
       text: "",
-      tagged: "",
+      // tagged: "",
       search: "",
       category: "Moment",
       privacy: "Private",
@@ -112,7 +112,7 @@ class AddPost extends Component {
     let data = {
       title: this.state.title,
       text: this.state.text,
-      tagged: this.state.tagged,
+      // tagged: this.state.tagged,
       lng: this.state.lng,
       lat: this.state.lat,
       category: this.state.category,
@@ -126,7 +126,7 @@ class AddPost extends Component {
         this.setState({
           title: "",
           text: "",
-          tagged: "",
+          // tagged: "",
           pictureURL: "",
           message: `Your post has been created`
         })
@@ -225,19 +225,18 @@ class AddPost extends Component {
                   </Input>
                 </Col>
               </FormGroup>
-              {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
               <FormGroup row>
                 <Label for="pictureUrl" xl={3}>Add a picture</Label>
                 <Col xl={9}>
                   <Input type="file" name="pictureUrl" cols="30" rows="5" onChange={this.handleFileChange} />
                 </Col>
               </FormGroup>
-              <FormGroup row>
+              {/* <FormGroup row>
                 <Label for="tagged" xl={3}>Tag a user</Label>
                 <Col xl={9}>
                   <Input type="text" value={this.state.tagged} name="tagged" onChange={this.handleInputChange} />
                 </Col>
-              </FormGroup>
+              </FormGroup> */}
               
               <FormGroup row>
                 <Label for="search" xl={3}>

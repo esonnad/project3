@@ -20,7 +20,7 @@ export default class ViewProfile extends Component {
         user: user
       })
       api.getUser()
-    .then(user => {
+      .then(user => {
       console.log(user)
       if (user._id === this.state.user._id) {
         this.setState({
@@ -45,7 +45,7 @@ export default class ViewProfile extends Component {
             {/* <img src={this.state.user.imageURL} /> */}
             <p>See Public Posts by {this.state.user.username}</p>
             <p>{this.state.isMe}</p>
-            { this.state.isMe && <Link path='/profile'>Edit Profile</Link>}
+            { this.state.isMe && <Link to='/profile'>Edit Profile</Link>}
           </div>
         </div>
 

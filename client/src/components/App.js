@@ -67,7 +67,7 @@ class App extends Component {
           <Route path="/about" component={About} />
           <ProtectedRoute user={this.state.loggedInUser} path="/explore" component={Explore} />
           <ProtectedRoute user={this.state.loggedInUser} path="/posts/:id" component={EditPost}/>
-          <ProtectedRoute user={this.state.loggedInUser} path="/private" render={() => ( <Private user={this.state.loggedInUser}/> )} />
+          <Route path="/private" render={() => ( <Private user={this.state.loggedInUser}/> )} />
           <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />
           <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />
           <Route path="/verifyemail/:id" component={Verification} />

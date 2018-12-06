@@ -21,8 +21,8 @@ class Home extends Component {
           <div className="card text-center w-50">
           
           <div className="card-body">
-          <h5 className="card-title">Welcome</h5>
-          <p className="card-text">Text that tells you about the project</p><br></br>
+          <h5 className="card-title">Welcome to PinPoint!</h5>
+          <p className="card-text">Happy to see you here!</p><br></br>
           <a href="/signup" className="btn btn-primary">Sign up</a><br></br><br></br>
           <a href="/login" className="btn btn-primary">Log in</a>
           </div>

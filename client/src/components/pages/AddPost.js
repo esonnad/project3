@@ -24,6 +24,7 @@ class AddPost extends Component {
     this.state = {
       title: "",
       text: "",
+      tagged: "",
       search: "",
       category: "Moment",
       privacy: "Private",
@@ -58,7 +59,6 @@ class AddPost extends Component {
     this.setState({
       file: file,
       pictureUrl: "",
-      message: "Image loading..."
     })
 
   }
@@ -112,6 +112,7 @@ class AddPost extends Component {
     let data = {
       title: this.state.title,
       text: this.state.text,
+      tagged: this.state.tagged,
       lng: this.state.lng,
       lat: this.state.lat,
       category: this.state.category,
@@ -125,6 +126,7 @@ class AddPost extends Component {
         this.setState({
           title: "",
           text: "",
+          tagged: "",
           pictureURL: "",
           message: `Your post has been created`
         })
@@ -184,9 +186,9 @@ class AddPost extends Component {
   }
   render() {
     return (
+      <div>
+        <h1 className="page-title">Mark your spot</h1>
       <Container className="AddPost">
-        <h2>Mark your spot</h2>
-
         <Row>
           <Col md={6}>
             <Form>
@@ -230,7 +232,12 @@ class AddPost extends Component {
                   <Input type="file" name="pictureUrl" cols="30" rows="5" onChange={this.handleFileChange} />
                 </Col>
               </FormGroup>
-
+              <FormGroup row>
+                <Label for="tagged" xl={3}>Tag a user</Label>
+                <Col xl={9}>
+                  <Input type="text" value={this.state.tagged} name="tagged" onChange={this.handleInputChange} />
+                </Col>
+              </FormGroup>
               
               <FormGroup row>
                 <Label for="search" xl={3}>
@@ -270,6 +277,7 @@ class AddPost extends Component {
           {this.state.message}
         </div>}
       </Container>
+      </div>
     )
   }
 }

@@ -12,6 +12,7 @@ const postSchema = new Schema({
     type: { type: String, required: true },
     coordinates: { type: [Number], required: true }
   },
+  _tagged: { type: Schema.Types.ObjectId, ref: 'User'},
   _owner: { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
     timestamps: {

@@ -37,12 +37,11 @@ export default class MainNavbar extends Component {
   }
 
 
-  handleLogoutClick(e) {
-    e.preventDefault();
+  handleLogoutClick=(e)=> {
     api.logout()
     .then(result => {
       this.props.getUser(null)})
-
+      // this.props.history.push("/");
   }
   toggle() {
     this.setState({
@@ -84,11 +83,10 @@ export default class MainNavbar extends Component {
             {(api.isLoggedIn() && this.state.user!= null) && <NavItem>
               <NavLink tag={NLink} to={`/viewprofile/${this.state.user._id}`}>Profile</NavLink>
             </NavItem>}
-            {api.isLoggedIn() && <NavItem>
-              <NavLink tag={Link} to="/"  onClick={(e) => this.handleLogoutClick(e)}>Logout</NavLink>
-            </NavItem>}
+           
 
-          </Nav>
+          </Nav>              {api.isLoggedIn() && <NavLink tag={Link} to="/home" onClick={ this.handleLogoutClick}>Logout</NavLink> }
+
         </Collapse>
       </Navbar>
     )

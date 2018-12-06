@@ -13,7 +13,6 @@ export default class ViewProfile extends Component {
   }
 
   componentDidMount() {
-    console.log("mounting")
     api.getUserByID(this.props.match.params.id)
     .then(user => {
       this.setState({
@@ -26,7 +25,6 @@ export default class ViewProfile extends Component {
         this.setState({
           isMe: true
         })
-        console.log("state", this.state)
 
       }
     })
@@ -36,7 +34,6 @@ export default class ViewProfile extends Component {
 
 
   render() {
-    console.log("rendering")
     return (
       <div> { this.state.user && 
         <div class="conditional-on-user">

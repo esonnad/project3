@@ -57,7 +57,6 @@ export default class EditPost extends Component {
   }
   handleChange = (event) => {
     let name = event.target.name
-    console.log("input changed", name)
     this.setState({
       [name]: event.target.value
     }, () => {

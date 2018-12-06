@@ -15,17 +15,7 @@ import 'react-autocomplete-input/dist/bundle.css';
 import TextInput from 'react-autocomplete-input';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-//let myVar = process.env.REACT_APP_MAPBOX_TOKEN
-//console.log("this is my token",myVar)
-//console.log("process.env THIS ONEEE",process.env)
 const geocodingClient = mbxGeocoding({ accessToken: 'pk.eyJ1IjoiZXNvbm5hZCIsImEiOiJjam96eXM0ZGYwMTAwM3ZtdHBiYTZnMnA1In0.bd13D4f1GjPT6iwSU45lTA'});
-
-// TODO:
-// Create a function for random picture 
-// Set copyright in footer
-// Set opacity at footer and navbar
-// position button at landing page
-// link buttons without ahref
 
 class AddPost extends Component {
   constructor(props) {

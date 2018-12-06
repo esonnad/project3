@@ -10,7 +10,6 @@ router.get('/', (req, res, next) => {
    // Populate on the field 'username' and '_id' (default) ==> avoid displaying the hash password that could be a security issue
     .then(([postsPublic, postsAnonymous]) => {
       postsAnonymous.forEach(post => {post._owner._id = "5c0905e280892708c581af43"; post._owner.username= "Anonymous"})
-      console.log("anonymous", postsAnonymous)
       res.json({
         public: postsPublic,
         anonymous: postsAnonymous
@@ -20,8 +19,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', isLoggedIn, parser.single('picture'), (req, res, next) => {
-  console.log("POST FUNCTION- WITH PICTURE", req.body)
-  console.log("POST FUNCTION REQUEST: REQ.file", req.file)
 
   let { title, text, lng, lat, category, privacy, public_id } = req.body
   let file = req.file
@@ -54,7 +51,6 @@ router.post('/', isLoggedIn, parser.single('picture'), (req, res, next) => {
 );
 
 router.post('/nopicture', isLoggedIn, (req, res, next) => {
-  console.log("POST FUNCTION NO PICTURE: REQ.BODY", req.body)
 
   let { title, text, lng, lat, category, privacy} = req.body
   let _owner = req.user._id
@@ -84,7 +80,6 @@ router.post('/nopicture', isLoggedIn, (req, res, next) => {
     })
 
 router.post('/picture', parser.single('picture'), (req,res,next)=>{
-  console.log("Post Picture Request:", req.file)
   if(req.file.public_id || req.file.public_id !== ""){cloudinary.v2.uploader.destroy(req.file.public_id, function(result) { console.log("WHAT IS THIS? WHAT DOES THIS FUNCTION DO? WHO AM I?? ") });}
   res.json({
     imageURL: req.file.url,

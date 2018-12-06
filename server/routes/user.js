@@ -17,7 +17,6 @@ let transporter = nodemailer.createTransport({
 });
 
 router.get('/', (req,res,next)=>{
-  console.log("there is a user:", req.user)
   res.json(req.user);
 })
 
@@ -89,7 +88,6 @@ router.get('/:id', (req,res,next)=>{
 })
 
 router.post('/picture', parser.single('picture'), (req,res,next)=>{
-  console.log("User post picture route. Request File:", req.file)
   let id = req.user._id;
   cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
   User.findByIdAndUpdate(id, { imageURL: req.file.url, public_id: req.file.public_id })

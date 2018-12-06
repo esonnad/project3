@@ -81,7 +81,6 @@ class Posts extends Component {
               currentPost.distance = distance;
             }
             posts = posts.sort((a,b) => a.distance - b.distance);
-            console.log("updated posts", posts)
 
             this.setState({
               posts: posts.map(post => {

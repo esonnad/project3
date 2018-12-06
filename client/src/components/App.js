@@ -55,6 +55,8 @@ class App extends Component {
 <Switch>
           {/* <Route exact path='/login' component={Login}/> */}
           {!api.isLoggedIn() && <Route path="/home" exact  component={Home} /> }
+          {api.isLoggedIn() && <Route path="/home" exact  component={Explore} /> }
+
           {/* {!api.isLoggedIn() && <Route path="/" exact  component={Home} /> } */}
           {/* {api.isLoggedIn() && <Route path="/" exact component={Explore} /> } */}
           {api.isLoggedIn() && <Route exact path="/"  component={Explore} /> }
@@ -63,14 +65,16 @@ class App extends Component {
           <Route path="/signup" render={() => this.state.loggedInUser ? (<Redirect to="/explore"/>) : (<Signup getUser={this.getTheUser}/>)} />
           <Route path="/login" render={() => this.state.loggedInUser ? (<Redirect to="/explore"/>) : (<Login getUser={this.getTheUser}/>)} /> 
           <Route path="/about" component={About} />
-          <Route path="/explore" component={Explore} />
-          <Route path="/posts/:id" component={EditPost}/>
-          <Route path="/private" render={() => ( <Private user={this.state.loggedInUser}/> )} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/explore" component={Explore} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/posts/:id" component={EditPost}/>
+          <ProtectedRoute user={this.state.loggedInUser} path="/private" render={() => ( <Private user={this.state.loggedInUser}/> )} />
           <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />
           <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />
           <Route path="/verifyemail/:id" component={Verification} />
-          <Route path="/viewprofile/:id" component={ViewProfile} />
-          <Route path="/profile" component={Profile} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/viewprofile/:id" component={ViewProfile} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/profile" component={Profile} />
+          <Route path="/logout" component={Home} />
+
 
           <Route render={() => <h2>404</h2>} />
           </Switch>

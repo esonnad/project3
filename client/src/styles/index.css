@@ -6315,7 +6315,7 @@ a.text-dark:hover, a.text-dark:focus {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif; }
+  font-family: 'Montserrat', sans-serif; }
 
 .info {
   margin: 20px;
@@ -6329,6 +6329,7 @@ body {
   background-color: #e73f3f; }
 
 .App .App-header {
+  background-color: #F6F5FB;
   padding: 20px;
   color: white; }
   .App .App-header a {
@@ -6346,7 +6347,7 @@ body {
 
 .MainNavbar {
   min-height: 60px;
-  background-color: rgba(246, 245, 251, 0.5) !important; }
+  background-color: #F6F5FB !important; }
   .MainNavbar .logo {
     height: 40px;
     padding-bottom: 4px; }
@@ -6381,7 +6382,7 @@ body {
 
 .mapboxgl-popup-close-button {
   width: 10%;
-  background-color: #FFF04C;
+  background-color: #D0CECE;
   border-radius: 4px; }
 
 .Secret .result {
@@ -6398,11 +6399,9 @@ body {
     display: flex;
     justify-content: space-around; }
     .profilePage .bottomBox .rightBox {
-      border: 1px solid black;
       padding: 40px; }
     .profilePage .bottomBox .leftBox {
       width: 370px;
-      border: 1px solid black;
       padding: 40px; }
 
 body, html {
@@ -6434,8 +6433,8 @@ body, html {
   height: 500px; }
 
 .card-container {
-  border-top: 2px solid #03134C;
-  background-color: #11A5A5;
+  border-top: 2px solid #535151;
+  background-color: #F6F5FB;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -6443,7 +6442,7 @@ body, html {
   padding: 10px; }
 
 .card {
-  color: black;
+  color: #535151;
   font-family: 'Montserrat', sans-serif;
   border-radius: 3px;
   padding: 5px 10px 5px 10px;
@@ -6457,8 +6456,10 @@ body, html {
 .page-title {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  background-color: #11A5A5;
-  color: white; }
+  background-color: #F6F5FB;
+  color: #535151;
+  border-bottom: 2px solid #535151;
+  padding-bottom: 10px; }
 
 .post-card {
   display: flex;
@@ -6473,3 +6474,14 @@ body, html {
     font-weight: 200; }
     .post-card h6 a {
       color: #535151; }
+
+.user-name {
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #535151; }
+
+.user-link {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #535151;
+  color: #535151; }

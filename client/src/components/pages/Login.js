@@ -31,7 +31,9 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <h2>Login</h2>
+      <h1 className="page-title">Login</h1>
+        <div className="card">
+
         <form>
           Username: <input type="text" value={this.state.username} onChange={(e) => this.handleInputChange("username", e)} /> <br />
           Password: <input type="password" value={this.state.password} onChange={(e) => this.handleInputChange("password", e)} /> <br />
@@ -40,6 +42,7 @@ class Login extends Component {
         {this.state.message && <div className="info info-danger">
           {this.state.message}
         </div>}
+        </div>
       </div>
     );
   }

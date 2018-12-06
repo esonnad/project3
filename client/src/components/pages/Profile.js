@@ -115,11 +115,12 @@ export default class Profile extends Component {
   render() {
     return (
       <div className="profilePage">
+        <h1 className="page-title">Edit my Profile</h1>
         <h2>Here you can edit the details of your profile!</h2>
         <div className="bottomBox">
         
 
-        <div className="leftBox">
+        <div className="leftBox card">
         <div className="profileInfoBox">
         <form>
           <Label for="username">Username:</Label>
@@ -150,7 +151,7 @@ export default class Profile extends Component {
         </div>}
         </div>
 
-        <div className="profilePicBox rightBox">
+        <div className="profilePicBox rightBox card">
         {this.state.imageURL!=="" && <img src={this.state.imageURL} style={{height: 200}} />}
         <form onSubmit={(e)=>this.handleFileSubmit(e)}>
           <input type="file" onChange={this.handleFileChange} /> <br/>

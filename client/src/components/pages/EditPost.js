@@ -20,6 +20,7 @@ export default class EditPost extends Component {
     super(props)
     this.state = {
       title: "",
+      tagged: "",
       pictureUrl: "",
       file: null,
       text: "",
@@ -41,6 +42,7 @@ export default class EditPost extends Component {
       .then(post=>{
         this.setState({
           title: post.title,
+          tagged: post._tagged.username,
           text: post.text,
           category: post.category,
           privacy: post.privacy,
@@ -153,6 +155,7 @@ export default class EditPost extends Component {
     e.preventDefault()
     let data = {
       title: this.state.title,
+      tagged: this.state.tagged,
       text: this.state.text,
       lng: this.state.lng,
       lat: this.state.lat,
@@ -230,6 +233,12 @@ export default class EditPost extends Component {
                 </Col>
               </FormGroup>
 
+              <FormGroup row>
+                <Label for="tagged" xl={3}>Tagged user</Label>
+                <Col xl={9}>
+                  <Input type="text" value={this.state.tagged} name="tagged" onChange={this.handleChange} />
+                </Col>
+              </FormGroup>
               
               <FormGroup row>
                 <Label for="search" xl={3}>

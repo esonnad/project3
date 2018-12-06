@@ -38,7 +38,8 @@ class Signup extends Component {
   render() {
     return (
       <div className="Signup">
-        <h2>Signup</h2>
+      <h1 className="page-title">Signup</h1>
+      <div className="card">
         <form>
           Username: <input type="text" value={this.state.username} onChange={(e) => this.handleInputChange("username", e)} /> <br />
           Email: <input type="text" value={this.state.email} onChange={(e) => this.handleInputChange("email", e)} /> <br />
@@ -48,6 +49,7 @@ class Signup extends Component {
         {this.state.message && <div className="info info-danger">
           {this.state.message}
         </div>}
+      </div>
       </div>
     );
   }

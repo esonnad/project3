@@ -52,7 +52,10 @@ class Posts extends Component {
     return (
       <React.Fragment>
 
-      <h1 class="page-title">Explore</h1>
+      <h1 className="page-title">Explore</h1>
+      
+
+      <div  ref={this.mapRef} ></div>
       <div class="card-container">
         {this.state.posts.map(post=>
           <div class="card" key={post.title} onClick={()=>this.handleCardClick(post)}>
@@ -60,8 +63,6 @@ class Posts extends Component {
           </div>
         )}
       </div>
-
-      <div  ref={this.mapRef} ></div>
       </React.Fragment>
    
     );

@@ -29,7 +29,7 @@ class Private extends Component {
     this.map = new mapboxgl.Map({
       container: this.mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v10',
-      center: [0, 0], // Africa lng,lat
+      center: [13.3715472, 52.5055177], // Africa lng,lat
       zoom: 15
     })
 
@@ -97,7 +97,25 @@ class Private extends Component {
               })
             })
           })
+        } 
+        
+        else {
+          this.setState({
+            posts: posts.map(post => {
+            const [lng, lat] = post.location.coordinates
+            return {
+              ...post,
+              marker: new mapboxgl.Marker({ color: 'blue' })
+            
+                .setLngLat([lng, lat])
+                .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
+                  .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px" alt=""><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category}</h6><h6> posted ${post.privacy}</h6><a href="https://ironpinpoint.herokuapp.com/posts/${post._id}">Edit</a><div>`))
+                .addTo(this.map)
+              }
+            })
+          })
         }
+
       })
       .catch(err => console.log(err))
     this.initMap()

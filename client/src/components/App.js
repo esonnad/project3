@@ -65,14 +65,22 @@ class App extends Component {
           <Route path="/signup" render={() => this.state.loggedInUser ? (<Redirect to="/explore"/>) : (<Signup getUser={this.getTheUser}/>)} />
           <Route path="/login" render={() => this.state.loggedInUser ? (<Redirect to="/explore"/>) : (<Login getUser={this.getTheUser}/>)} /> 
           <Route path="/about" component={About} />
-          <ProtectedRoute user={this.state.loggedInUser} path="/explore" component={Explore} />
-          <ProtectedRoute user={this.state.loggedInUser} path="/posts/:id" component={EditPost}/>
+          {/* <ProtectedRoute user={this.state.loggedInUser} path="/explore" component={Explore} /> */}
+          {/* <ProtectedRoute user={this.state.loggedInUser} path="/posts/:id" component={EditPost}/> */}
+          <Route path="/posts/:id" component={EditPost}/> 
+          <Route path="/explore" component={Explore}/> 
+
+
           <Route path="/private" render={() => ( <Private user={this.state.loggedInUser}/> )} />
-          <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} />
-          <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />
+          {/* <ProtectedRoute user={this.state.loggedInUser} path="/add-post" component={AddPost} /> */}
+          <Route path="/add-post" component={AddPost}/> 
+          {/* <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} /> */}
+          <Route path="/myProfile" component={Profile}/> 
           <Route path="/verifyemail/:id" component={Verification} />
-          <ProtectedRoute user={this.state.loggedInUser} path="/viewprofile/:id" component={ViewProfile} />
-          <ProtectedRoute user={this.state.loggedInUser} path="/profile" component={Profile} />
+          {/* <ProtectedRoute user={this.state.loggedInUser} path="/viewprofile/:id" component={ViewProfile} /> */}
+          <Route path="/viewprofile/:id" component={ViewProfile}/> 
+          {/* <ProtectedRoute user={this.state.loggedInUser} path="/profile" component={Profile} /> */}
+          <Route path="/profile" component={Profile}/> 
           <Route path="/logout" component={Home} />
 
 

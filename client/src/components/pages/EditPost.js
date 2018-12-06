@@ -42,7 +42,7 @@ export default class EditPost extends Component {
       .then(post=>{
         this.setState({
           title: post.title,
-          tagged: post._tagged.username,
+          //tagged: post._tagged.username,
           text: post.text,
           category: post.category,
           privacy: post.privacy,

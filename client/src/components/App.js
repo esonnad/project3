@@ -57,7 +57,7 @@ class App extends Component {
           {!api.isLoggedIn() && <Route path="/home" exact  component={Home} /> }
           {/* {!api.isLoggedIn() && <Route path="/" exact  component={Home} /> } */}
           {/* {api.isLoggedIn() && <Route path="/" exact component={Explore} /> } */}
-          {/* <Route exact path="/"  component={Explore} />  */}
+          {api.isLoggedIn() && <Route exact path="/"  component={Explore} /> }
 
           <ProtectedRoute user={this.state.loggedInUser} path="/" exact component={Explore} />
           <Route path="/signup" render={() => this.state.loggedInUser ? (<Redirect to="/explore"/>) : (<Signup getUser={this.getTheUser}/>)} />
@@ -70,6 +70,8 @@ class App extends Component {
           <ProtectedRoute user={this.state.loggedInUser} path="/myProfile" component={Profile} />
           <Route path="/verifyemail/:id" component={Verification} />
           <Route path="/viewprofile/:id" component={ViewProfile} />
+          <Route path="/profile" component={Profile} />
+
           <Route render={() => <h2>404</h2>} />
           </Switch>
         <MainFooter />

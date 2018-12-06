@@ -108,7 +108,7 @@ class Posts extends Component {
                   marker: new mapboxgl.Marker({ color: '#03134C' })
                     .setLngLat([lng, lat])
                     .setPopup(new mapboxgl.Popup({ offset: -30, anchor: "center" })
-                      .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px" alt=""><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category} by <a className="cardlink" href="http://localhost:3000/viewprofile/${post._owner._id}">${post._owner.username}</a></h6><div>`))
+                      .setHTML(`<div class="post-card"><img  src=${post.picture} height="180px" alt=""><h4>${post.title}</h4> <p>${post.text}</p><h6>A ${post.category} by <a className="cardlink" href="https://ironpinpoint.herokuapp.com/viewprofile/${post._owner._id}">${post._owner.username}</a></h6><div>`))
                     .addTo(this.map)
                 }    
               })

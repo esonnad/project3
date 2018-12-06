@@ -30,7 +30,7 @@ class Posts extends Component {
     this.map = new mapboxgl.Map({
       container: this.mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v10',
-      center: [0, 0], // Africa lng,lat
+      center: [13.3715472, 52.5055177], // Africa lng,lat
       zoom: 15
     })
 

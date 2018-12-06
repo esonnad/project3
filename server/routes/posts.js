@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
   Promise.all([Post.find({privacy: "Public"}).populate('_owner', 'username'), Post.find({privacy: "Anonymous"}).populate('_owner', 'username')])
    // Populate on the field 'username' and '_id' (default) ==> avoid displaying the hash password that could be a security issue
     .then(([postsPublic, postsAnonymous]) => {
-      postsAnonymous.forEach(post => {post._owner._id = "5c0905e280892708c581af43"; post._owner.username= "Anonymous"})
+      postsAnonymous.forEach(post => {post._owner._id = "5c0946026fd6070020c9113c"; post._owner.username= "Anonymous"})
       res.json({
         public: postsPublic,
         anonymous: postsAnonymous

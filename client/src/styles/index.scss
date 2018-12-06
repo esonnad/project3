@@ -258,3 +258,18 @@ body, html {
   border: 1px solid rgb(83, 81, 81);
   color: rgb(83, 81, 81);
 }
+.button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    margin: 10px;
+    background-color: #F6F5FB;
+    border-left: 6px solid rgb(83, 81, 81);
+    box-shadow: 10px 10px 12px -8px rgba(0,0,0,0.3);
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 3px;
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+  }
+}

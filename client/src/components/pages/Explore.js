@@ -18,7 +18,8 @@ class Posts extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: []
+      posts: [],
+      randomPost: []
     }
     this.mapRef = React.createRef()
     this.map = null
@@ -48,15 +49,31 @@ class Posts extends Component {
     }, 7000)
   }
 
+  randomPost(){
+    var random = Math.floor(Math.random()*this.state.posts.length)
+    var randomPost = this.state.posts[random]
+    console.log(this.state.posts)
+    this.setState({
+      randomPost : [randomPost]
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
 
       <h1 className="page-title">Explore</h1>
-      
+      <div className="button-container"><button onClick={()=>this.randomPost()}>Give me a random post!</button></div>
+      <div className="card-container">
+        {this.state.randomPost.map(post=>
+          <div class="card" key={post.title} onClick={()=>this.handleCardClick(post)}>
+          <p class="card-title">{post.title}</p>
+          </div>
+        )}
+      </div>
 
       <div  ref={this.mapRef} ></div>
-      <div class="card-container">
+      <div className="card-container">
         {this.state.posts.map(post=>
           <div class="card" key={post.title} onClick={()=>this.handleCardClick(post)}>
           <p class="card-title">{post.title}</p>

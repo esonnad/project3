@@ -4,7 +4,7 @@
 
 // --------------------
 // Definition of variables
-$primary: #11A5A5;
+$primary: #F6F5FB;
 $marginBottomNavbar: 20px;
 $navbarHeight: 60px;
 
@@ -19,7 +19,7 @@ $navbarHeight: 60px;
 // --------------------
 // Style reusable for all components
 body {
-  background-color: #11A5A5;
+  // background-color: #11A5A5;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -42,7 +42,7 @@ body {
 // Style for App component
 .App {
   .App-header {
-    background-color: $primary;
+    // background-color: $primary;
     padding: 20px;
     color: white;
 
@@ -69,7 +69,7 @@ body {
 .MainNavbar {
   min-height: $navbarHeight;
   // margin-bottom: $marginBottomNavbar;
-  background-color: #11A5A5!important;
+  background-color: rgba(246, 245, 251, 0.5)!important; 
   .logo {
     height: 40px;
     padding-bottom: 4px;
@@ -78,7 +78,7 @@ body {
     padding: 4px 0 0 0;
   }
   .nav-link{
-    color:black!important;
+    color:rgb(83, 81, 81)!important;
   }
 }
 
@@ -216,7 +216,7 @@ body, html {
    padding: 5px 10px 5px 10px;
    margin: 5px;
    box-shadow: 10px 10px 12px -8px rgba(0,0,0,0.3);
-   border-left: 6px solid #FFF04C;
+   border-left: 6px solid rgb(83, 81, 81);
    display: flex;
    align-items: center;
    justify-content: center;
@@ -241,5 +241,9 @@ body, html {
   }
   h6 {
     font-weight: 200;
+    a{
+      // text-decoration: none;
+      color: rgb(83, 81, 81);
+    }
   }
 }

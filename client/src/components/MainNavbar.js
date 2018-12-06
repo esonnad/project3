@@ -51,7 +51,7 @@ export default class MainNavbar extends Component {
   }
   render() {
     return (
-      <Navbar color="primary" dark expand="md" className="MainNavbar">
+      <Navbar dark expand="md" className="MainNavbar">
         <NavbarBrand to="/" tag={Link}>
           <img src="../logoPin.png" className="logo" alt="logo" />
           

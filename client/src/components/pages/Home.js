@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const pictures = ["https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&h=350", "https://static.makeuseof.com/wp-content/uploads/2018/03/travel-planning-apps-670x335.jpg", "https://s14677.pcdn.co/wp-content/uploads/2015/06/Best-Travel-Tips-Traveling-the-World.jpg", "https://triphunter.ro/wp-content/uploads/2014/04/calatoreste-2.jpg"]
+const pictures = ["../../images/pic1.jpg", "../../images/pic2.jpg", "../../images/pic3.JPG", "../../images/pic4.JPG", "../../images/pic5.JPG", "../../images/pic6.JPG", "../../images/pic7.JPG", "../../images/pic8.JPG", "../../images/pic9.JPG", "../../images/pic10.JPG", "../../images/pic11.JPG", "../../images/pic12.JPG", "../../images/pic13.JPG", "../../images/pic14.JPG", "../../images/pic15.JPG", "../../images/pic16.JPG", "../../images/pic17.JPG", "../../images/pic18.JPG", "../../images/pic19.JPG", "../../images/pic20.JPG", "../../images/pic21.JPG", "../../images/pic22.JPG", "../../images/pic23.JPG", ]
 
 class Home extends Component {
   constructor(props) {
@@ -18,12 +18,12 @@ class Home extends Component {
     return (
       <div className="Home" style={{backgroundImage: `url(${this.state.background})`}}>
       <div className="feli">
-        <div className="card text-center w-50">
+          <div className="card text-center w-50">
           
           <div className="card-body">
           <h5 className="card-title">Welcome</h5>
-          <p className="card-text">Text that tells you about the project</p>
-          <a href="/signup" className="btn btn-primary">Sign up</a>
+          <p className="card-text">Text that tells you about the project</p><br></br>
+          <a href="/signup" className="btn btn-primary">Sign up</a><br></br><br></br>
           <a href="/login" className="btn btn-primary">Log in</a>
           </div>
           
